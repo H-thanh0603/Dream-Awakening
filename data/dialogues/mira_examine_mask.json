@@ -1,0 +1,8 @@
+{
+  "id": "mira_examine_mask",
+  "lines": [
+    {"speaker": "Người dịch", "text": "Mặt nạ này rất đẹp. Nhưng mặt trong đầy vết nứt."},
+    {"speaker": "", "text": "[Sổ Mộng cập nhật: Mặt nạ đẹp nhưng nứt bên trong — hình ảnh hoàn hảo có thể đang che giấu điều gì.]",
+      "side_effect": {"set_flags": ["mira_clue_mask"]}}
+  ]
+}

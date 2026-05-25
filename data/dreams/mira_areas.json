@@ -1,0 +1,104 @@
+{
+  "id": "mira_dream",
+  "title_vi": "Chiếc Mặt Nạ Trước Gương",
+  "areas": [
+    {
+      "id": "central_room",
+      "title_vi": "Phòng Trung Tâm",
+      "implemented": "MVP-1",
+      "role": "hub",
+      "exits": ["mirror_room", "mask_hall", "library", "garden", "studio"],
+      "lock_slots": [
+        {"id": "slot_mirror",   "accepts": "mirror_real",  "implemented": true},
+        {"id": "slot_mask",     "accepts": "mask_cracked", "implemented": true},
+        {"id": "slot_flower",   "accepts": "balanced_flower", "implemented": true},
+        {"id": "slot_portrait", "accepts": "true_portrait",   "implemented": true}
+      ]
+    },
+    {
+      "id": "mirror_room",
+      "title_vi": "Phòng Gương Vỡ",
+      "implemented": "MVP-1",
+      "puzzles": [
+        {"id": "stuck_switch", "type": "use_item",       "needs": "hairpin"},
+        {"id": "drawer_open",  "type": "use_item",       "needs": "silver_key"},
+        {"id": "open_curtain", "type": "use_item",       "needs": "curtain_cord"},
+        {"id": "cat_tiles",    "type": "sliding_tile",   "size": [3, 3]},
+        {"id": "eye_rotators", "type": "rotate_match",   "count": 4, "answer": ["up", "right", "down", "left"]},
+        {"id": "shard_assemble", "type": "place_slots",  "count": 4, "reward": "mirror_real"}
+      ]
+    },
+    {
+      "id": "mask_hall",
+      "title_vi": "Hành Lang Mặt Nạ",
+      "implemented": "MVP-1",
+      "puzzles": [
+        {"id": "hidden_mask_via_mirror", "type": "reflection_reveal", "reward": "mask_fear"},
+        {"id": "two_row_emotion",        "type": "two_row_match",
+          "rows": {
+            "outer": ["mask_smile", "mask_obedient", "mask_quiet"],
+            "inner": ["mask_fear", "mask_tired", "mask_angry"]
+          },
+          "reward": "mask_cracked"
+        }
+      ]
+    },
+    {
+      "id": "library",
+      "title_vi": "Thư Viện Ký Ức Lộn Xộn",
+      "implemented": "MVP-2",
+      "puzzles": [
+        {"id": "history_order",  "type": "ordered_slots",
+          "items": ["hai_ba_trung", "bach_dang", "tuyen_ngon", "dien_bien_phu", "doi_moi"]},
+        {"id": "literature_match", "type": "symbol_pair",
+          "pairs": {"lotus": "compassion", "mask": "fakeness", "closed_door": "loneliness", "mirror": "outer_beauty"}},
+        {"id": "diary_order", "type": "ordered_slots", "items": ["A", "B", "C", "D"]},
+        {"id": "portrait_reveal", "type": "use_mirror_real_on", "target": "mira_smile_painting"},
+        {"id": "key_box", "type": "code_box", "code": ["sym1","sym2","sym3","sym4"], "reward": "dried_flower"}
+      ]
+    },
+    {
+      "id": "garden",
+      "title_vi": "Vườn Hình Học",
+      "implemented": "MVP-2",
+      "puzzles": [
+        {"id": "area_order", "type": "compute_order_by_area",
+          "plots": [
+            {"id": "circle",    "shape": "circle",    "params": {"r": 3}},
+            {"id": "square",    "shape": "square",    "params": {"a": 5}},
+            {"id": "rectangle", "shape": "rectangle", "params": {"w": 6, "h": 4}},
+            {"id": "triangle",  "shape": "triangle",  "params": {"b": 8, "h": 3}}
+          ],
+          "answer_descending": ["circle", "square", "rectangle", "triangle"]
+        }
+      ],
+      "reward": "balanced_flower"
+    },
+    {
+      "id": "studio",
+      "title_vi": "Xưởng Chân Dung Trừu Tượng",
+      "implemented": "MVP-3",
+      "puzzles": [
+        {"id": "portrait_pieces", "type": "balanced_pick", "pick_count": 6,
+          "must_include_one_of": [["smile","tear"], ["flower","crack"], ["help_hand","ask_hand"]]
+        }
+      ],
+      "reward": "true_portrait"
+    },
+    {
+      "id": "ritual",
+      "title_vi": "Nghi Thức Cuối: Gỡ Mặt Nạ",
+      "implemented": "MVP-1",
+      "steps": [
+        "lead_mira_to_mirror",
+        "place_mirror_real",
+        "spawn_mira_small",
+        "fetch_mask_perfect",
+        "place_mask_on_floor",
+        "shatter_mask_with_E"
+      ],
+      "preconditions": ["mira_mirror_repaired", "mira_mask_arranged"],
+      "on_complete_flag": "mira_realized"
+    }
+  ]
+}

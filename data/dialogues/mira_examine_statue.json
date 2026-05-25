@@ -1,0 +1,9 @@
+{
+  "id": "mira_examine_statue",
+  "lines": [
+    {"speaker": "Người dịch", "text": "Tượng giống hệt Mira. Nhưng khuôn mặt đã bị mài nhẵn."},
+    {"speaker": "Người dịch", "text": "Phía dưới khắc: 'Đẹp là đủ.'"},
+    {"speaker": "", "text": "[Sổ Mộng cập nhật: Tượng không mặt — Mira có thể đang tự xóa phần thật của mình.]",
+      "side_effect": {"set_flags": ["mira_clue_statue"]}}
+  ]
+}

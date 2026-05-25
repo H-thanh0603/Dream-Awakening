@@ -1,3 +1,8 @@
+## DEPRECATED — OBSOLETE
+## This script is no longer attached to any scene.
+## Mira's actual controller is MiraLevel.gd (used by Dream_Mira_MirrorRoom.tscn).
+## Kept only as reference; safe to delete.
+##
 extends Node2D
 ##
 ## DreamMira — main controller for the 4-room redesign.

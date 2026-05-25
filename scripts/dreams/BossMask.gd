@@ -1,8 +1,6 @@
 class_name BossMask extends Node2D
 ##
 ## BossMask — flying mask in room 4. Teleports every 3s.
-## Player must stand on an active anchor + press E when mask passes overhead.
-## After 4 captures, boss defeated.
 ##
 
 signal mask_captured(count: int)
@@ -20,13 +18,10 @@ var _telepart_period: float = 3.0
 var _started: bool = false
 var _anchors: Array = []
 var _player: Node2D
-var _wraiths: Array = []
 var _bobble_t: float = 0.0
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
-	_anchors = $Anchors.get_children() if has_node("Anchors") else []
-	_wraiths = $Wraiths.get_children() if has_node("Wraiths") else []
 	_time_left = time_limit
 	visible = false
 
@@ -36,6 +31,11 @@ func start_fight(player: Node2D) -> void:
 	visible = true
 	_time_left = time_limit
 	_captures = 0
+	# Refresh anchor list at fight start (allows scene to fully load)
+	_anchors = get_tree().get_nodes_in_group("boss_anchor")
+	for a in _anchors:
+		if a.has_method("refresh"):
+			a.refresh()
 	_teleport()
 	_update_labels()
 
@@ -45,7 +45,6 @@ func _process(delta: float) -> void:
 	_time_left -= delta
 	_teleport_t += delta
 	_bobble_t += delta
-	# Mask bobble
 	mask_sprite.position.y = -8.0 + sin(_bobble_t * 4.0) * 4.0
 	if _teleport_t >= _telepart_period:
 		_teleport_t = 0.0
@@ -53,13 +52,10 @@ func _process(delta: float) -> void:
 	_update_labels()
 	if _time_left <= 0.0:
 		_fail_timeout()
-	# Press E when in range of an active anchor
 	if Input.is_action_just_pressed("interact") and not GameState.current_state in ["DIALOGUE_ACTIVE", "PAUSED"]:
 		_try_capture()
 
 func _teleport() -> void:
-	# Teleport to random spot in room 4 (bottom-right quadrant)
-	# Avoid walls — pick from preset list
 	var spots := [
 		Vector2(560, 320), Vector2(720, 320), Vector2(880, 320),
 		Vector2(560, 420), Vector2(720, 420), Vector2(880, 420),
@@ -70,11 +66,10 @@ func _teleport() -> void:
 func _try_capture() -> void:
 	if _player == null:
 		return
-	# Player must be on an anchor that's still active
 	var nearest_anchor = null
 	var best_d: float = 24.0
 	for a in _anchors:
-		if not a.has_method("get") or not a.get("active"):
+		if not a.active:
 			continue
 		var d: float = a.global_position.distance_to(_player.global_position)
 		if d < best_d:
@@ -82,7 +77,6 @@ func _try_capture() -> void:
 			nearest_anchor = a
 	if nearest_anchor == null:
 		return
-	# Mask must be roughly above player (within 60 px)
 	var dx: float = abs(global_position.x - _player.global_position.x)
 	var dy: float = global_position.y - _player.global_position.y
 	if dx < 50.0 and dy > -80.0 and dy < 30.0:
@@ -94,21 +88,17 @@ func _try_capture() -> void:
 		if _captures >= TOTAL_CAPTURES:
 			_win()
 		else:
-			# Force immediate teleport so mask doesn't sit there
 			_teleport_t = 0.0
 			_teleport()
 
 func _win() -> void:
 	_started = false
 	visible = false
-	for w in _wraiths:
-		w.queue_free()
 	var parent_dream = get_parent()
 	if parent_dream and parent_dream.has_method("on_boss_defeated"):
 		parent_dream.on_boss_defeated()
 
 func _fail_timeout() -> void:
-	# Reset captures, refresh anchors, refresh time
 	_captures = 0
 	_time_left = time_limit
 	for a in _anchors:

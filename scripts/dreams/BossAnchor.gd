@@ -12,6 +12,7 @@ func _ready() -> void:
 	collision_layer = 0
 	collision_mask = 2
 	monitoring = true
+	add_to_group("boss_anchor")
 
 func consume() -> void:
 	active = false

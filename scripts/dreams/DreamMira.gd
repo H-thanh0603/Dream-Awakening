@@ -153,17 +153,24 @@ func _on_essence_placed(_item_id: String, slot_kind: String) -> void:
 		DialogueManager.play("mira_order_wrong")
 		_essence_order.clear()
 		LucidityManager.damage(10.0)
-		# Re-enable all 3 slots (reset)
-		$Room3/WaterSlot.enabled = true
-		$Room3/LightSlot.enabled = true
-		$Room3/MemorySlot.enabled = true
-		# Respawn essences
-		$Room3/WaterPickup.visible = true
-		$Room3/WaterPickup.enabled = true
-		$Room3/LightPickup.visible = true
-		$Room3/LightPickup.enabled = true
-		$Room3/MemoryPickup.visible = true
-		$Room3/MemoryPickup.enabled = true
+		# Re-enable all 3 slots and clear placed state
+		for slot_name in ["WaterSlot", "LightSlot", "MemorySlot"]:
+			var slot: Node = $Room3.get_node(slot_name)
+			slot.enabled = true
+			if "placed_item" in slot:
+				slot.placed_item = ""
+			var visual: ColorRect = slot.get_node_or_null("Visual")
+			if visual:
+				visual.color = Color(0.5, 0.45, 0.5, 1)
+		# Re-enable all essence pickups (consumed_on_pickup=false → still in scene)
+		for pickup_name in ["WaterPickup", "LightPickup", "MemoryPickup"]:
+			var pk: Node = $Room3.get_node(pickup_name)
+			pk.visible = true
+			pk.enabled = true
+		# Drop any essence still in inventory
+		for it in ["water", "light", "memory_essence"]:
+			if InventoryManager.has_item(it):
+				InventoryManager.remove_item(it)
 		return
 	if _essence_order.size() >= 3:
 		# Correct order!

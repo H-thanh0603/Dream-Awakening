@@ -273,9 +273,9 @@ text = "Mẹo: Đẩy 2 hộp lên 2 nút sáng cùng lúc"
 modulate = Color(1, 0.95, 0.7, 0.8)
 
 [node name="WhisperA" type="CharacterBody2D" parent="Room1"]
-position = Vector2(240, 200)
+position = Vector2(280, 100)
 script = ExtResource("8_shadow")
-patrol_points = Array[Vector2]([Vector2(160, 200), Vector2(320, 200)])
+patrol_points = Array[Vector2]([Vector2(280, 100), Vector2(380, 130), Vector2(380, 50), Vector2(280, 50)])
 speed = 28.0
 [node name="Sprite" type="Sprite2D" parent="Room1/WhisperA"]
 texture = ExtResource("24_shad")
@@ -442,6 +442,7 @@ shape = SubResource("Sh_obj")
 position = Vector2(60, 380)
 script = ExtResource("3_pickup")
 prompt_text = "E - Lấy giọt nước"
+consumed_on_pickup = false
 item_id = "water"
 [node name="Sprite" type="Sprite2D" parent="Room3/WaterPickup"]
 texture = ExtResource("51_wd")
@@ -461,6 +462,7 @@ visible = false
 position = Vector2(180, 380)
 script = ExtResource("3_pickup")
 prompt_text = "E - Lấy ánh sáng"
+consumed_on_pickup = false
 item_id = "light"
 [node name="Sprite" type="Sprite2D" parent="Room3/LightPickup"]
 texture = ExtResource("50_lt")
@@ -480,6 +482,7 @@ visible = false
 position = Vector2(300, 380)
 script = ExtResource("3_pickup")
 prompt_text = "E - Lấy ký ức"
+consumed_on_pickup = false
 item_id = "memory_essence"
 [node name="Sprite" type="Sprite2D" parent="Room3/MemoryPickup"]
 texture = ExtResource("52_glow")
@@ -656,6 +659,7 @@ shape = SubResource("Sh_obj")
 [node name="Boss" type="Node2D" parent="."]
 script = ExtResource("9_boss")
 position = Vector2(720, 380)
+z_index = 50
 [node name="MaskSprite" type="Sprite2D" parent="Boss"]
 texture = ExtResource("60_mask")
 scale = Vector2(2, 2)

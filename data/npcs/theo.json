@@ -1,0 +1,18 @@
+{
+  "id": "theo",
+  "display_name": "Theo",
+  "real_world_state": "hiding",
+  "issue_core": "fear_of_failure",
+  "wrong_belief": "Nếu mình làm sai, mình là đồ vô dụng.",
+  "dream_scene": "res://scenes/dreams/Dream_Theo_EndlessClass.tscn",
+  "intro_dialogue": "theo_intro",
+  "after_wake_dialogue": "theo_after_wake",
+  "required_memories": [
+    "theo_corrected",
+    "theo_friend_note",
+    "theo_progress"
+  ],
+  "ritual_id": "theo_paper_plane",
+  "unlock_flag": "mira_realized",
+  "next_npc": "rell"
+}

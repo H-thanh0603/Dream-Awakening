@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0invbar00001"]
+
+[ext_resource type="Script" path="res://scripts/ui/InventoryBar.gd" id="1_invbar"]
+
+[node name="InventoryBar" type="CanvasLayer"]
+layer = 32
+script = ExtResource("1_invbar")
+
+[node name="HBox" type="HBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -28.0
+offset_right = 80.0
+offset_bottom = -8.0
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="ActiveLabel" type="Label" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -32.0
+offset_right = 240.0
+offset_bottom = -16.0
+text = ""
+modulate = Color(1, 0.9, 0.5, 1)

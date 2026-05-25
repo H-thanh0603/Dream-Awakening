@@ -1,7 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://b0otscene00001"]
-
-[ext_resource type="PackedScene" path="res://scenes/ui/DialogueBox.tscn" id="1_dialogue"]
-[ext_resource type="PackedScene" path="res://scenes/ui/PauseMenu.tscn" id="2_pause"]
+[gd_scene load_steps=2 format=3 uid="uid://b0otscene00001"]
 
 [sub_resource type="GDScript" id="GDScript_boot"]
 script/source = "extends Node2D
@@ -9,10 +6,16 @@ script/source = "extends Node2D
 func _ready() -> void:
 	print(\"[Boot] starting...\")
 	# Mount persistent UI on root viewport
-	var dialogue_scene = preload(\"res://scenes/ui/DialogueBox.tscn\").instantiate()
-	get_tree().root.call_deferred(\"add_child\", dialogue_scene)
-	var pause_scene = preload(\"res://scenes/ui/PauseMenu.tscn\").instantiate()
-	get_tree().root.call_deferred(\"add_child\", pause_scene)
+	var ui_scenes := [
+		\"res://scenes/ui/DialogueBox.tscn\",
+		\"res://scenes/ui/PauseMenu.tscn\",
+		\"res://scenes/ui/Notebook.tscn\",
+		\"res://scenes/ui/InventoryBar.tscn\",
+		\"res://scenes/ui/HUD.tscn\"
+	]
+	for s in ui_scenes:
+		var inst = load(s).instantiate()
+		get_tree().root.call_deferred(\"add_child\", inst)
 	await get_tree().process_frame
 	await get_tree().process_frame
 	SceneLoader.fade_to(\"res://scenes/main/MainMenu.tscn\", 0.4)

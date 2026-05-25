@@ -1,0 +1,9 @@
+{
+  "id": "mira_cat",
+  "owner_npc": "mira",
+  "title_vi": "Cứu chú mèo bị thương",
+  "description_vi": "Mira ngồi xổm bên hông nhà, băng vết thương cho con mèo nhỏ.",
+  "icon": "",
+  "found_in_dream": "Dream_Mira_MirrorRoom",
+  "is_counter_evidence": true
+}

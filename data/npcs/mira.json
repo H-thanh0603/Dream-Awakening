@@ -1,0 +1,18 @@
+{
+  "id": "mira",
+  "display_name": "Mira",
+  "real_world_state": "hiding",
+  "issue_core": "self_image_shame",
+  "wrong_belief": "Mình chỉ có giá trị nếu mình đẹp.",
+  "dream_scene": "res://scenes/dreams/Dream_Mira_MirrorRoom.tscn",
+  "intro_dialogue": "mira_intro",
+  "after_wake_dialogue": "mira_after_wake",
+  "required_memories": [
+    "mira_cat",
+    "mira_flower",
+    "mira_friend"
+  ],
+  "ritual_id": "mira_put_mask_down",
+  "unlock_flag": "tutorial_completed",
+  "next_npc": "theo"
+}

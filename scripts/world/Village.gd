@@ -1,39 +1,38 @@
 extends Node2D
 ##
-## Village.gd — register intro dialogues for 4 NPCs.
-## Phase 1: inline placeholder text. Phase 2 T2.10 sẽ chuyển sang load JSON.
+## Village.gd — orchestrate 4 NPC state, dialogues, and dream portals.
 ##
 
 func _ready() -> void:
 	GameState.set_state("EXPLORE_VILLAGE")
 	GameState.set_case("")
-	_register_placeholder_dialogues()
+	# Player spawn
+	$Player.position = Vector2(240, 200)
+	NotebookManager.set_objective("Tìm hiểu Mira ở căn nhà phía bắc.")
+	# Connect NPC state changes
+	DreamStateManager.npc_state_changed.connect(_on_state_changed)
+	_apply_npc_state()
+	# Auto-save on village entry
+	SaveManager.save_game()
+
+func _on_state_changed(_npc_id: String, _old: String, _new: String) -> void:
 	_apply_npc_state()
 
-func _register_placeholder_dialogues() -> void:
-	DialogueManager.register("mira_intro", [
-		{"speaker": "Mira", "text": "Đừng nhìn em lâu quá... em không quen."},
-		{"speaker": "Player", "text": "Dạo này em ngủ không ngon sao?"},
-		{"speaker": "Mira", "text": "Trong mơ có rất nhiều gương. Gương nào cũng nói cùng một điều."}
-	])
-	DialogueManager.register("theo_intro", [
-		{"speaker": "Theo", "text": "Tôi đang ôn bài. Tay tôi run."},
-		{"speaker": "Theo", "text": "Cậu đến tìm tôi sau nhé."}
-	])
-	DialogueManager.register("rell_intro", [
-		{"speaker": "Rell", "text": "Đồng hồ nào trong tiệm cũng dừng cùng một giờ. Lạ thật."}
-	])
-	DialogueManager.register("lina_intro", [
-		{"speaker": "Lina", "text": "Mình ổn mà. Hôm nay đẹp trời quá nhỉ?"}
-	])
-
 func _apply_npc_state() -> void:
-	# Phase 1: Mira luôn enabled, các NPC khác chờ flag từ Phase 3+
 	for npc in $NPCs.get_children():
 		var nid: String = npc.npc_id if "npc_id" in npc else ""
-		if nid == "mira":
+		if nid == "":
+			continue
+		var state: String = DreamStateManager.get_npc_state(nid)
+		if state in ["LOCKED"]:
+			npc.enabled = false
+			npc.modulate = Color(0.3, 0.3, 0.3, 0.5)
+		elif state in ["AWAKE_CHANGED"]:
 			npc.enabled = true
+			npc.intro_dialogue_id = "%s_after_wake" % nid
+			# Tint slightly brighter
+			npc.modulate = Color(1.1, 1.1, 1.1, 1)
 		else:
-			# Theo unlocks after mira_realized, etc. Placeholder for now.
-			var unlock_flag: String = "%s_unlocked" % nid
-			npc.enabled = GameState.has_flag(unlock_flag)
+			npc.enabled = true
+			npc.intro_dialogue_id = "%s_intro" % nid
+			npc.modulate = Color(1, 1, 1, 1)

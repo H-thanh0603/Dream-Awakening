@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0hud0000000001"]
+
+[ext_resource type="Script" path="res://scripts/ui/HUD.gd" id="1_hud"]
+
+[node name="HUD" type="CanvasLayer"]
+layer = 16
+script = ExtResource("1_hud")
+
+[node name="ObjectiveLabel" type="Label" parent="."]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 320.0
+offset_bottom = 24.0
+text = ""
+modulate = Color(1, 0.92, 0.7, 1)
+
+[node name="NotebookHint" type="Label" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -120.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = 24.0
+text = "Q: Sổ Mộng"
+horizontal_alignment = 2
+modulate = Color(0.7, 0.7, 0.8, 1)

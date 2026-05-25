@@ -1,0 +1,18 @@
+{
+  "id": "theo_intro",
+  "lines": [
+    {
+      "speaker": "Theo",
+      "text": "Tôi đang ôn bài. Tay tôi run."
+    },
+    {
+      "speaker": "Theo",
+      "text": "Cậu đến tìm tôi sau nhé...",
+      "side_effect": {
+        "set_flags": [
+          "theo_intro_done"
+        ]
+      }
+    }
+  ]
+}

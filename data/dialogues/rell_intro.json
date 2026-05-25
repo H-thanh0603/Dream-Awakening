@@ -1,0 +1,14 @@
+{
+  "id": "rell_intro",
+  "lines": [
+    {
+      "speaker": "Rell",
+      "text": "Đồng hồ nào trong tiệm cũng dừng cùng một giờ. Lạ thật.",
+      "side_effect": {
+        "set_flags": [
+          "rell_intro_done"
+        ]
+      }
+    }
+  ]
+}

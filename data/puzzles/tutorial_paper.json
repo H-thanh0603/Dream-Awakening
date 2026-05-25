@@ -1,0 +1,14 @@
+{
+  "id": "tutorial_paper",
+  "type": "collect_and_place",
+  "scene": "Dream_Tutorial",
+  "required_items": [
+    "paper_clue"
+  ],
+  "target_object": "EmptyFrame",
+  "order_matters": false,
+  "reward_flags": [
+    "tutorial_completed"
+  ],
+  "on_complete_dialogue": "tutorial_done"
+}

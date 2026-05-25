@@ -1,0 +1,18 @@
+{
+  "id": "lina",
+  "display_name": "Lina",
+  "real_world_state": "normal",
+  "issue_core": "loneliness",
+  "wrong_belief": "Nếu mình nói mình buồn, mọi người sẽ rời đi.",
+  "dream_scene": "res://scenes/dreams/Dream_Lina_DoorlessRoom.tscn",
+  "intro_dialogue": "lina_intro",
+  "after_wake_dialogue": "lina_after_wake",
+  "required_memories": [
+    "lina_friend1",
+    "lina_friend2",
+    "lina_friend3"
+  ],
+  "ritual_id": "lina_open_door_inside",
+  "unlock_flag": "rell_realized",
+  "next_npc": null
+}

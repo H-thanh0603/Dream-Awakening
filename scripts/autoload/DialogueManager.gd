@@ -1,15 +1,15 @@
 extends Node
 ##
 ## DialogueManager — hiển thị dialogue với typing effect, evaluate condition.
-## GDD §C.4, IMPLEMENTATION_PLAN T1.7-T1.8
+## GDD §C.4, IMPLEMENTATION_PLAN T1.7-T1.8 + T2.10 (load JSON)
 ##
 
 signal dialogue_started(dialogue_id: String)
 signal dialogue_line_shown(speaker: String, text: String)
 signal dialogue_ended(dialogue_id: String)
 
-var _inline_dialogues: Dictionary = {}  # id -> Array of lines
-var _queue: Array = []                  # pending dialogue ids
+var _dialogues: Dictionary = {}  # id -> Array of lines
+var _queue: Array = []
 var _current_lines: Array = []
 var _current_index: int = 0
 var _current_id: String = ""
@@ -18,19 +18,27 @@ var _previous_state: String = ""
 
 func _ready() -> void:
 	print("[DialogueManager] ready")
+	_load_from_dir()
+
+func _load_from_dir() -> void:
+	var data := JsonLoader.load_dir("res://data/dialogues")
+	for dialogue_id in data:
+		var d: Dictionary = data[dialogue_id]
+		if d.has("lines"):
+			_dialogues[dialogue_id] = d["lines"]
+	print("[DialogueManager] loaded %d dialogues from JSON" % _dialogues.size())
 
 func register(dialogue_id: String, lines: Array) -> void:
-	_inline_dialogues[dialogue_id] = lines
+	_dialogues[dialogue_id] = lines
 
 func register_from_dict(data: Dictionary) -> void:
-	# Used by Phase 2 JSON loader
 	if not data.has("id") or not data.has("lines"):
 		push_error("Invalid dialogue dict: " + str(data))
 		return
-	_inline_dialogues[data["id"]] = data["lines"]
+	_dialogues[data["id"]] = data["lines"]
 
 func play(dialogue_id: String) -> void:
-	if not _inline_dialogues.has(dialogue_id):
+	if not _dialogues.has(dialogue_id):
 		push_warning("Dialogue not found: " + dialogue_id)
 		return
 	if _active:
@@ -40,7 +48,7 @@ func play(dialogue_id: String) -> void:
 
 func _start(dialogue_id: String) -> void:
 	_current_id = dialogue_id
-	_current_lines = _inline_dialogues[dialogue_id].duplicate()
+	_current_lines = _dialogues[dialogue_id].duplicate()
 	_current_index = 0
 	_active = true
 	_previous_state = GameState.current_state
@@ -59,7 +67,6 @@ func _show_current() -> void:
 			str(line.get("speaker", "")),
 			str(line.get("text", ""))
 		)
-		# Side-effects (set flags, give items, play sfx)
 		var effects: Dictionary = line.get("side_effect", {})
 		for f in effects.get("set_flags", []):
 			GameState.set_flag(str(f), true)
@@ -86,7 +93,6 @@ func _end() -> void:
 	_active = false
 	_current_id = ""
 	_current_lines.clear()
-	# Restore previous state instead of forcing EXPLORE_VILLAGE
 	if _previous_state != "" and _previous_state != "DIALOGUE_ACTIVE":
 		GameState.set_state(_previous_state)
 	else:

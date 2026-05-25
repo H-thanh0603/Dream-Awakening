@@ -1,7 +1,6 @@
 extends Control
 ##
 ## MainMenu — title screen với 3 nút Bắt đầu / Tiếp tục / Thoát.
-## Phase 1: Start loads Village. Continue chờ Phase 2 SaveManager.
 ##
 
 func _ready() -> void:
@@ -11,14 +10,21 @@ func _ready() -> void:
 		continue_btn.disabled = not SaveManager.has_save()
 
 func _on_start_pressed() -> void:
-	print("[MainMenu] Start pressed → Village")
-	SceneLoader.fade_to("res://scenes/world/Village.tscn", 0.6)
+	print("[MainMenu] Start pressed → Tutorial")
+	# Reset save and start fresh tutorial
+	GameState.flags.clear()
+	GameState.set_state("DREAM_EXPLORE")
+	SceneLoader.fade_to("res://scenes/dreams/Dream_Tutorial.tscn", 0.6)
 
 func _on_continue_pressed() -> void:
-	print("[MainMenu] Continue pressed — Phase 2 T2.11 sẽ load save")
+	print("[MainMenu] Continue pressed → load save")
 	if SaveManager.load_game():
-		# TODO Phase 2: restore scene
-		pass
+		# Determine where to go based on saved state
+		var case_id: String = GameState.current_case
+		if GameState.has_flag("tutorial_completed"):
+			SceneLoader.fade_to("res://scenes/world/Village.tscn", 0.6)
+		else:
+			SceneLoader.fade_to("res://scenes/dreams/Dream_Tutorial.tscn", 0.6)
 
 func _on_quit_pressed() -> void:
 	print("[MainMenu] Quit pressed")

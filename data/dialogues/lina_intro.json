@@ -1,0 +1,14 @@
+{
+  "id": "lina_intro",
+  "lines": [
+    {
+      "speaker": "Lina",
+      "text": "Mình ổn mà. Hôm nay đẹp trời quá nhỉ?",
+      "side_effect": {
+        "set_flags": [
+          "lina_intro_done"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0notebook00001"]
+
+[ext_resource type="Script" path="res://scripts/ui/Notebook.gd" id="1_nb"]
+
+[node name="Notebook" type="CanvasLayer"]
+process_mode = 3
+layer = 80
+script = ExtResource("1_nb")
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.06, 0.06, 0.1, 0.85)
+
+[node name="Title" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_top = 8.0
+offset_right = 100.0
+offset_bottom = 28.0
+text = "SỔ MỘNG"
+horizontal_alignment = 1
+modulate = Color(1, 0.9, 0.5, 1)
+
+[node name="Hint" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -22.0
+offset_right = 80.0
+offset_bottom = -6.0
+text = "Q để đóng"
+horizontal_alignment = 1
+modulate = Color(0.7, 0.7, 0.7, 1)
+
+[node name="TabContainer" type="TabContainer" parent="."]
+anchor_left = 0.05
+anchor_top = 0.1
+anchor_right = 0.95
+anchor_bottom = 0.92
+
+[node name="Mục tiêu" type="ItemList" parent="TabContainer"]
+
+[node name="Biểu tượng" type="ItemList" parent="TabContainer"]
+
+[node name="Ký ức" type="ItemList" parent="TabContainer"]
+
+[node name="Trạng thái" type="ItemList" parent="TabContainer"]
+
+[node name="Gợi ý" type="ItemList" parent="TabContainer"]

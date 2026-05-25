@@ -42,6 +42,9 @@ func _update_objective() -> void:
 
 func _on_flag_changed(name: String, _val: bool) -> void:
 	_check_dream_portal()
+	# Any *_dream_offered or *_realized flag → re-evaluate which dialogue NPC plays
+	if name.ends_with("_dream_offered") or name.ends_with("_realized"):
+		_apply_npc_state()
 	if name in ["mira_realized", "theo_realized", "rell_realized", "lina_realized"]:
 		_update_objective()
 		_check_ending()
@@ -82,13 +85,20 @@ func _apply_npc_state() -> void:
 		if nid == "":
 			continue
 		var state: String = DreamStateManager.get_npc_state(nid)
+		var offered: bool = GameState.has_flag("%s_dream_offered" % nid)
+		var realized: bool = GameState.has_flag("%s_realized" % nid)
 		if state in ["LOCKED"]:
 			npc.enabled = false
 			npc.modulate = Color(0.3, 0.3, 0.3, 0.5)
-		elif state in ["AWAKE_CHANGED"]:
+		elif state in ["AWAKE_CHANGED"] or realized:
 			npc.enabled = true
 			npc.intro_dialogue_id = "%s_after_wake" % nid
 			npc.modulate = Color(1.1, 1.1, 1.1, 1)
+		elif offered:
+			# Already invited — point them to the dream portal
+			npc.enabled = true
+			npc.intro_dialogue_id = "%s_waiting" % nid
+			npc.modulate = Color(0.85, 0.85, 1.0, 1)
 		else:
 			npc.enabled = true
 			npc.intro_dialogue_id = "%s_intro" % nid

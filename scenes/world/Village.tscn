@@ -135,6 +135,43 @@ script = ExtResource("5_portal")
 target_scene = "res://scenes/dreams/Dream_Mira_MirrorRoom.tscn"
 prompt_text = "E - Bước vào giấc mơ Mira"
 
+[node name="GlowSprite" type="ColorRect" parent="DreamPortal"]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(0.5, 0.4, 0.9, 0.8)
+
+[node name="Core" type="ColorRect" parent="DreamPortal"]
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+color = Color(0.95, 0.85, 1.0, 1)
+
+[node name="Shape" type="CollisionShape2D" parent="DreamPortal"]
+shape = SubResource("RectangleShape2D_portal")
+
+[node name="Label" type="Label" parent="DreamPortal"]
+offset_left = -64.0
+offset_top = -34.0
+offset_right = 64.0
+offset_bottom = -16.0
+text = "Cửa Mộng"
+horizontal_alignment = 1
+modulate = Color(1, 0.9, 1, 1)
+
+[node name="Prompt" type="Label" parent="DreamPortal"]
+offset_left = -80.0
+offset_top = 18.0
+offset_right = 80.0
+offset_bottom = 36.0
+text = "E - Bước vào giấc mơ"
+horizontal_alignment = 1
+modulate = Color(1, 0.95, 0.5, 1)
+visible = false
+
+
 [node name="GlowVisual" type="Sprite2D" parent="DreamPortal"]
 texture = ExtResource("12_house")
 modulate = Color(0.6, 0.4, 1, 0.8)

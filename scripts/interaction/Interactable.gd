@@ -39,6 +39,9 @@ func _process(_delta: float) -> void:
 	# Don't trigger during dialogue/pause/ritual
 	if GameState.current_state in ["DIALOGUE_ACTIVE", "PAUSED", "RITUAL_READY"]:
 		return
+	# Skip 3 frames after dialogue ends — same E press shouldn't re-trigger NPC
+	if DialogueManager.recently_ended():
+		return
 	_hide_prompt()
 	interacted.emit(self)
 	_on_interact()

@@ -15,6 +15,7 @@ var _current_index: int = 0
 var _current_id: String = ""
 var _active: bool = false
 var _previous_state: String = ""
+var _last_end_frame: int = -10
 
 func _ready() -> void:
 	print("[DialogueManager] ready")
@@ -90,6 +91,7 @@ func cancel() -> void:
 
 func _end() -> void:
 	var ended_id: String = _current_id
+	_last_end_frame = Engine.get_process_frames()
 	_active = false
 	_current_id = ""
 	_current_lines.clear()
@@ -104,3 +106,7 @@ func _end() -> void:
 
 func is_active() -> bool:
 	return _active
+
+func recently_ended() -> bool:
+	# True for ~3 frames after dialogue ended — prevents same-frame re-trigger
+	return Engine.get_process_frames() - _last_end_frame < 3

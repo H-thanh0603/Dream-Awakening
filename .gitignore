@@ -27,3 +27,8 @@ builds/
 # User save data (test only — không đẩy lên repo)
 user-data/
 *.save
+
+# Re-downloadable from kenney.nl
+assets/kenney/*.zip
+assets/kenney/*/Sample.png
+assets/kenney/*/Tilesheet.txt

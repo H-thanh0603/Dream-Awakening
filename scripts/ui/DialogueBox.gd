@@ -1,15 +1,26 @@
 extends CanvasLayer
 ##
-## DialogueBox — UI hiển thị dialogue với typing effect.
+## DialogueBox — UI hiển thị dialogue với typing effect và portrait.
 ## GDD §C.4, IMPLEMENTATION_PLAN T1.7
 ##
 
 @onready var panel: Panel = $Panel
+@onready var portrait: TextureRect = $Panel/Portrait
 @onready var speaker_label: Label = $Panel/SpeakerName
 @onready var dialogue_text: RichTextLabel = $Panel/DialogueText
 @onready var next_hint: Label = $Panel/NextHint
 
 const TYPE_SPEED := 0.025  # seconds per character
+
+# Speaker name → portrait file
+const SPEAKER_PORTRAITS := {
+	"Mira": "res://assets/portraits/mira_portrait.png",
+	"Theo": "res://assets/portraits/theo_portrait.png",
+	"Rell": "res://assets/portraits/rell_portrait.png",
+	"Lina": "res://assets/portraits/lina_portrait.png",
+	"Player": "res://assets/portraits/player_portrait.png",
+	"Bạn": "res://assets/portraits/player_portrait.png",
+}
 
 var _full_text: String = ""
 var _typing_complete: bool = false
@@ -28,6 +39,13 @@ func _on_dialogue_started(_id: String) -> void:
 
 func _on_line_shown(speaker: String, text: String) -> void:
 	speaker_label.text = speaker
+	# Load portrait if known
+	var p_path: String = SPEAKER_PORTRAITS.get(speaker, "")
+	if p_path != "" and ResourceLoader.exists(p_path):
+		portrait.texture = load(p_path)
+		portrait.visible = true
+	else:
+		portrait.visible = false
 	_full_text = text
 	dialogue_text.text = ""
 	_typing_complete = false

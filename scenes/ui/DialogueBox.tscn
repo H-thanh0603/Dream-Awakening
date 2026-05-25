@@ -12,22 +12,30 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 16.0
-offset_top = -90.0
+offset_top = -100.0
 offset_right = -16.0
 offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 0
 
+[node name="Portrait" type="TextureRect" parent="Panel"]
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 70.0
+offset_bottom = 70.0
+expand_mode = 1
+stretch_mode = 5
+
 [node name="SpeakerName" type="Label" parent="Panel"]
-offset_left = 8.0
+offset_left = 78.0
 offset_top = 4.0
-offset_right = 200.0
+offset_right = 280.0
 offset_bottom = 22.0
 text = "Speaker"
 modulate = Color(1, 0.85, 0.4, 1)
 
 [node name="DialogueText" type="RichTextLabel" parent="Panel"]
-offset_left = 8.0
+offset_left = 78.0
 offset_top = 24.0
 offset_right = -8.0
 offset_bottom = -8.0

@@ -1,0 +1,59 @@
+{
+  "_license": "Kenney.nl CC0 — free for commercial and personal use, attribution appreciated but not required",
+  "_source": {
+    "tiny-town": "https://kenney.nl/assets/tiny-town",
+    "tiny-dungeon": "https://kenney.nl/assets/tiny-dungeon"
+  },
+  "_tile_size": 16,
+  "_atlas_layout_note": "atlas tilemap_packed.png is a grid of 16x16 tiles; tile (col, row) → individual file Tiles/tile_NNNN.png where NNNN = row*12 + col",
+  "tiny_town": {
+    "_atlas": "kenney/tiny-town/Tilemap/tilemap_packed.png",
+    "_tiles_dir": "kenney/tiny-town/Tiles/",
+    "useful_tiles": {
+      "grass_plain": "tile_0000.png",
+      "grass_dense": "tile_0001.png",
+      "path_horiz": "tile_0024.png",
+      "path_dirt": "tile_0044.png",
+      "house_brown_top": "tile_0048.png",
+      "house_brown_door": "tile_0050.png",
+      "house_red_top": "tile_0049.png",
+      "house_red_door": "tile_0051.png",
+      "house_blue_top": "tile_0052.png",
+      "house_blue_door": "tile_0053.png",
+      "tree_pine": "tile_0027.png",
+      "tree_round": "tile_0030.png",
+      "well": "tile_0036.png",
+      "fence_horiz": "tile_0008.png",
+      "fence_vert": "tile_0009.png",
+      "lamp_post": "tile_0119.png",
+      "sign": "tile_0035.png",
+      "barrel": "tile_0107.png",
+      "crate": "tile_0108.png"
+    }
+  },
+  "tiny_dungeon": {
+    "_atlas": "kenney/tiny-dungeon/Tilemap/tilemap_packed.png",
+    "_tiles_dir": "kenney/tiny-dungeon/Tiles/",
+    "useful_tiles": {
+      "floor_stone": "tile_0048.png",
+      "floor_dark": "tile_0049.png",
+      "wall_brick": "tile_0024.png",
+      "wall_dark": "tile_0036.png",
+      "door_closed": "tile_0026.png",
+      "door_open": "tile_0027.png",
+      "chest_closed": "tile_0089.png",
+      "chest_open": "tile_0090.png",
+      "torch": "tile_0124.png",
+      "key_brass": "tile_0103.png",
+      "potion_red": "tile_0115.png",
+      "skeleton": "tile_0096.png",
+      "knight_player": "tile_0084.png"
+    }
+  },
+  "_usage_notes": {
+    "village_scene": "use tiny_town: floor_grass + path + 4 differently-colored houses for Mira/Theo/Rell/Lina + tree decorations + fence around village",
+    "dream_tutorial": "use tiny_dungeon: floor_dark + wall_brick + door for opening, plus our custom lamp_off/lamp_on + paper_clue items",
+    "dream_mira": "use tiny_dungeon mirrors (custom) on tiny_dungeon walls",
+    "general": "atlas can be loaded as TileSet in Godot (tile_size=16). Individual PNGs work well as Sprite2D textures."
+  }
+}

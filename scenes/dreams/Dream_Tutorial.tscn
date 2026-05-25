@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://m2nnwml22exc"]
+[gd_scene load_steps=14 format=3 uid="uid://m2nnwml22exc"]
 
 [ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="1_player"]
 [ext_resource type="Script" path="res://scripts/interaction/Interactable.gd" id="2_interactable"]
@@ -6,6 +6,14 @@
 [ext_resource type="Script" path="res://scripts/interaction/PlaceSlot.gd" id="4_slot"]
 [ext_resource type="Script" path="res://scripts/puzzle/CollectAndPlacePuzzle.gd" id="5_puzzle"]
 [ext_resource type="Script" path="res://scripts/dreams/DreamTutorial.gd" id="6_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/items/lamp_off.png" id="7_lamp_off"]
+[ext_resource type="Texture2D" path="res://assets/sprites/items/lamp_on.png" id="8_lamp_on"]
+[ext_resource type="Texture2D" path="res://assets/sprites/items/paper_clue.png" id="9_paper"]
+[ext_resource type="Texture2D" path="res://assets/sprites/items/mirror_frame_empty.png" id="10_frame_empty"]
+[ext_resource type="Texture2D" path="res://assets/sprites/items/mirror_filled.png" id="11_frame_filled"]
+[ext_resource type="Texture2D" path="res://assets/sprites/items/door_closed.png" id="12_door_closed"]
+[ext_resource type="Texture2D" path="res://assets/sprites/items/door_open.png" id="13_door_open"]
+[ext_resource type="Texture2D" path="res://assets/sprites/tiles/floor_dream.png" id="14_floor"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obj"]
 size = Vector2(28, 28)
@@ -22,7 +30,17 @@ script = ExtResource("6_script")
 [node name="Background" type="ColorRect" parent="."]
 offset_right = 480.0
 offset_bottom = 270.0
-color = Color(0.06, 0.05, 0.1, 1)
+color = Color(0.1, 0.07, 0.18, 1)
+
+[node name="FloorTiles" type="Node2D" parent="."]
+
+[node name="Floor" type="Sprite2D" parent="FloorTiles"]
+texture = ExtResource("14_floor")
+position = Vector2(240, 135)
+scale = Vector2(30, 17)
+modulate = Color(0.7, 0.7, 0.85, 1)
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
 
 [node name="Walls" type="Node2D" parent="."]
 
@@ -60,18 +78,15 @@ position = Vector2(160, 135)
 script = ExtResource("2_interactable")
 prompt_text = "E - Bật đèn"
 
-[node name="Visual" type="ColorRect" parent="Lamp"]
-offset_left = -10.0
-offset_top = -10.0
-offset_right = 10.0
-offset_bottom = 10.0
-color = Color(0.4, 0.4, 0.45, 1)
+[node name="Sprite" type="Sprite2D" parent="Lamp"]
+texture = ExtResource("7_lamp_off")
+scale = Vector2(1.5, 1.5)
 
 [node name="NameLabel" type="Label" parent="Lamp"]
 offset_left = -32.0
-offset_top = -28.0
+offset_top = -32.0
 offset_right = 32.0
-offset_bottom = -12.0
+offset_bottom = -16.0
 text = "Đèn"
 horizontal_alignment = 1
 modulate = Color(0.85, 0.85, 0.95, 1)
@@ -81,9 +96,9 @@ shape = SubResource("RectangleShape2D_obj")
 
 [node name="Prompt" type="Label" parent="Lamp"]
 offset_left = -48.0
-offset_top = 14.0
+offset_top = 18.0
 offset_right = 48.0
-offset_bottom = 30.0
+offset_bottom = 34.0
 text = "E - Bật đèn"
 horizontal_alignment = 1
 modulate = Color(1, 0.9, 0.4, 1)
@@ -96,18 +111,15 @@ prompt_text = "E - Nhặt giấy"
 item_id = "paper_clue"
 enabled = false
 
-[node name="Visual" type="ColorRect" parent="PaperClue"]
-offset_left = -8.0
-offset_top = -8.0
-offset_right = 8.0
-offset_bottom = 8.0
-color = Color(0.95, 0.92, 0.78, 1)
+[node name="Sprite" type="Sprite2D" parent="PaperClue"]
+texture = ExtResource("9_paper")
+scale = Vector2(1.5, 1.5)
 
 [node name="NameLabel" type="Label" parent="PaperClue"]
 offset_left = -32.0
-offset_top = -26.0
+offset_top = -32.0
 offset_right = 32.0
-offset_bottom = -10.0
+offset_bottom = -16.0
 text = "Mảnh giấy"
 horizontal_alignment = 1
 modulate = Color(0.95, 0.92, 0.78, 1)
@@ -117,9 +129,9 @@ shape = SubResource("RectangleShape2D_obj")
 
 [node name="Prompt" type="Label" parent="PaperClue"]
 offset_left = -48.0
-offset_top = 12.0
+offset_top = 16.0
 offset_right = 48.0
-offset_bottom = 28.0
+offset_bottom = 32.0
 text = "E - Nhặt giấy"
 horizontal_alignment = 1
 modulate = Color(1, 0.9, 0.4, 1)
@@ -131,18 +143,15 @@ script = ExtResource("4_slot")
 prompt_text = "E - Đặt vào khung"
 slot_id = "EmptyFrame"
 
-[node name="Visual" type="ColorRect" parent="EmptyFrame"]
-offset_left = -12.0
-offset_top = -16.0
-offset_right = 12.0
-offset_bottom = 16.0
-color = Color(0.55, 0.4, 0.28, 1)
+[node name="Sprite" type="Sprite2D" parent="EmptyFrame"]
+texture = ExtResource("10_frame_empty")
+scale = Vector2(1.5, 1.5)
 
 [node name="NameLabel" type="Label" parent="EmptyFrame"]
 offset_left = -36.0
-offset_top = -30.0
+offset_top = -36.0
 offset_right = 36.0
-offset_bottom = -14.0
+offset_bottom = -20.0
 text = "Khung trống"
 horizontal_alignment = 1
 modulate = Color(0.9, 0.75, 0.55, 1)
@@ -152,9 +161,9 @@ shape = SubResource("RectangleShape2D_obj")
 
 [node name="Prompt" type="Label" parent="EmptyFrame"]
 offset_left = -56.0
-offset_top = 18.0
+offset_top = 20.0
 offset_right = 56.0
-offset_bottom = 34.0
+offset_bottom = 36.0
 text = "E - Đặt vào khung"
 horizontal_alignment = 1
 modulate = Color(1, 0.9, 0.4, 1)
@@ -166,18 +175,15 @@ script = ExtResource("2_interactable")
 prompt_text = "E - Bước qua cửa"
 enabled = false
 
-[node name="Visual" type="ColorRect" parent="Door"]
-offset_left = -12.0
-offset_top = -18.0
-offset_right = 12.0
-offset_bottom = 18.0
-color = Color(0.32, 0.24, 0.2, 1)
+[node name="Sprite" type="Sprite2D" parent="Door"]
+texture = ExtResource("12_door_closed")
+scale = Vector2(1.2, 1.2)
 
 [node name="NameLabel" type="Label" parent="Door"]
 offset_left = -32.0
-offset_top = -32.0
+offset_top = -36.0
 offset_right = 32.0
-offset_bottom = -16.0
+offset_bottom = -20.0
 text = "Cửa"
 horizontal_alignment = 1
 modulate = Color(0.6, 0.5, 0.4, 1)
@@ -187,9 +193,9 @@ shape = SubResource("RectangleShape2D_obj")
 
 [node name="Prompt" type="Label" parent="Door"]
 offset_left = -56.0
-offset_top = 20.0
+offset_top = 22.0
 offset_right = 56.0
-offset_bottom = 36.0
+offset_bottom = 38.0
 text = "E - Bước qua cửa"
 horizontal_alignment = 1
 modulate = Color(1, 0.9, 0.4, 1)

@@ -1,9 +1,17 @@
-[gd_scene format=3 uid="uid://bwejqfnmjyvnk"]
+[gd_scene load_steps=14 format=3 uid="uid://bwejqfnmjyvnk"]
 
 [ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="1_player"]
-[ext_resource type="Script" path="res://scripts/interaction/Interactable.gd" id="2_interactable"]
 [ext_resource type="Script" path="res://scripts/interaction/NPC.gd" id="3_npc"]
 [ext_resource type="Script" path="res://scripts/world/Village.gd" id="4_village"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/mira.png" id="5_mira"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/theo.png" id="6_theo"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/rell.png" id="7_rell"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/lina.png" id="8_lina"]
+[ext_resource type="Texture2D" path="res://assets/sprites/tiles/floor_grass.png" id="9_grass"]
+[ext_resource type="Texture2D" path="res://assets/sprites/tiles/floor_path.png" id="10_path"]
+[ext_resource type="Texture2D" path="res://assets/kenney/tiny-town/Tiles/tile_0048.png" id="11_house"]
+[ext_resource type="Texture2D" path="res://assets/kenney/tiny-town/Tiles/tile_0049.png" id="12_house2"]
+[ext_resource type="Texture2D" path="res://assets/kenney/tiny-town/Tiles/tile_0027.png" id="13_tree"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_npc"]
 size = Vector2(20, 20)
@@ -20,7 +28,67 @@ script = ExtResource("4_village")
 [node name="Background" type="ColorRect" parent="."]
 offset_right = 480.0
 offset_bottom = 270.0
-color = Color(0.176471, 0.231373, 0.270588, 1)
+color = Color(0.18, 0.22, 0.18, 1)
+
+[node name="Floor" type="Sprite2D" parent="."]
+texture = ExtResource("9_grass")
+position = Vector2(240, 135)
+scale = Vector2(30, 17)
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+
+[node name="Path" type="Sprite2D" parent="."]
+texture = ExtResource("10_path")
+position = Vector2(240, 200)
+scale = Vector2(28, 2)
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+
+[node name="Decorations" type="Node2D" parent="."]
+
+[node name="Tree1" type="Sprite2D" parent="Decorations"]
+texture = ExtResource("13_tree")
+position = Vector2(60, 60)
+scale = Vector2(2, 2)
+
+[node name="Tree2" type="Sprite2D" parent="Decorations"]
+texture = ExtResource("13_tree")
+position = Vector2(420, 60)
+scale = Vector2(2, 2)
+
+[node name="Tree3" type="Sprite2D" parent="Decorations"]
+texture = ExtResource("13_tree")
+position = Vector2(60, 240)
+scale = Vector2(2, 2)
+
+[node name="Tree4" type="Sprite2D" parent="Decorations"]
+texture = ExtResource("13_tree")
+position = Vector2(420, 240)
+scale = Vector2(2, 2)
+
+[node name="House1" type="Sprite2D" parent="Decorations"]
+texture = ExtResource("11_house")
+position = Vector2(120, 50)
+scale = Vector2(2, 2)
+modulate = Color(1, 0.85, 0.85, 1)
+
+[node name="House2" type="Sprite2D" parent="Decorations"]
+texture = ExtResource("12_house2")
+position = Vector2(360, 50)
+scale = Vector2(2, 2)
+modulate = Color(0.85, 0.9, 1, 1)
+
+[node name="House3" type="Sprite2D" parent="Decorations"]
+texture = ExtResource("11_house")
+position = Vector2(120, 240)
+scale = Vector2(2, 2)
+modulate = Color(1, 0.95, 0.7, 1)
+
+[node name="House4" type="Sprite2D" parent="Decorations"]
+texture = ExtResource("12_house2")
+position = Vector2(360, 240)
+scale = Vector2(2, 2)
+modulate = Color(0.85, 1, 0.9, 1)
 
 [node name="Walls" type="Node2D" parent="."]
 
@@ -28,45 +96,21 @@ color = Color(0.176471, 0.231373, 0.270588, 1)
 position = Vector2(240, 8)
 [node name="Shape" type="CollisionShape2D" parent="Walls/WallTop"]
 shape = SubResource("RectangleShape2D_wall")
-[node name="Visual" type="ColorRect" parent="Walls/WallTop"]
-offset_left = -240.0
-offset_top = -8.0
-offset_right = 240.0
-offset_bottom = 8.0
-color = Color(0.0980392, 0.117647, 0.156863, 1)
 
 [node name="WallBottom" type="StaticBody2D" parent="Walls"]
 position = Vector2(240, 262)
 [node name="Shape" type="CollisionShape2D" parent="Walls/WallBottom"]
 shape = SubResource("RectangleShape2D_wall")
-[node name="Visual" type="ColorRect" parent="Walls/WallBottom"]
-offset_left = -240.0
-offset_top = -8.0
-offset_right = 240.0
-offset_bottom = 8.0
-color = Color(0.0980392, 0.117647, 0.156863, 1)
 
 [node name="WallLeft" type="StaticBody2D" parent="Walls"]
 position = Vector2(8, 135)
 [node name="Shape" type="CollisionShape2D" parent="Walls/WallLeft"]
 shape = SubResource("RectangleShape2D_wallv")
-[node name="Visual" type="ColorRect" parent="Walls/WallLeft"]
-offset_left = -8.0
-offset_top = -135.0
-offset_right = 8.0
-offset_bottom = 135.0
-color = Color(0.0980392, 0.117647, 0.156863, 1)
 
 [node name="WallRight" type="StaticBody2D" parent="Walls"]
 position = Vector2(472, 135)
 [node name="Shape" type="CollisionShape2D" parent="Walls/WallRight"]
 shape = SubResource("RectangleShape2D_wallv")
-[node name="Visual" type="ColorRect" parent="Walls/WallRight"]
-offset_left = -8.0
-offset_top = -135.0
-offset_right = 8.0
-offset_bottom = 135.0
-color = Color(0.0980392, 0.117647, 0.156863, 1)
 
 [node name="Player" parent="." instance=ExtResource("1_player")]
 position = Vector2(240, 200)
@@ -82,59 +126,51 @@ limit_bottom = 270
 [node name="NPCs" type="Node2D" parent="."]
 
 [node name="Mira" type="Area2D" parent="NPCs"]
-position = Vector2(120, 90)
+position = Vector2(120, 100)
 script = ExtResource("3_npc")
 prompt_text = "E - Mira"
 npc_id = "mira"
 intro_dialogue_id = "mira_intro"
 
-[node name="Visual" type="ColorRect" parent="NPCs/Mira"]
-offset_left = -8.0
-offset_top = -16.0
-offset_right = 8.0
-offset_bottom = 0.0
-color = Color(0.94, 0.66, 0.78, 1)
+[node name="Sprite" type="Sprite2D" parent="NPCs/Mira"]
+texture = ExtResource("5_mira")
+offset = Vector2(0, -8)
 
 [node name="Shape" type="CollisionShape2D" parent="NPCs/Mira"]
 shape = SubResource("RectangleShape2D_npc")
 
 [node name="Prompt" type="Label" parent="NPCs/Mira"]
-offset_left = -16.0
-offset_top = -32.0
-offset_right = 16.0
-offset_bottom = -16.0
-text = "E"
+offset_left = -24.0
+offset_top = -36.0
+offset_right = 24.0
+offset_bottom = -20.0
+text = "Mira"
 horizontal_alignment = 1
 modulate = Color(1, 0.9, 0.4, 1)
-visible = false
 
 [node name="Theo" type="Area2D" parent="NPCs"]
-position = Vector2(360, 90)
+position = Vector2(360, 100)
 script = ExtResource("3_npc")
 prompt_text = "E - Theo"
 npc_id = "theo"
 intro_dialogue_id = "theo_intro"
 enabled = false
 
-[node name="Visual" type="ColorRect" parent="NPCs/Theo"]
-offset_left = -8.0
-offset_top = -16.0
-offset_right = 8.0
-offset_bottom = 0.0
-color = Color(0.55, 0.78, 0.94, 1)
+[node name="Sprite" type="Sprite2D" parent="NPCs/Theo"]
+texture = ExtResource("6_theo")
+offset = Vector2(0, -8)
 
 [node name="Shape" type="CollisionShape2D" parent="NPCs/Theo"]
 shape = SubResource("RectangleShape2D_npc")
 
 [node name="Prompt" type="Label" parent="NPCs/Theo"]
-offset_left = -16.0
-offset_top = -32.0
-offset_right = 16.0
-offset_bottom = -16.0
-text = "E"
+offset_left = -24.0
+offset_top = -36.0
+offset_right = 24.0
+offset_bottom = -20.0
+text = "Theo"
 horizontal_alignment = 1
 modulate = Color(1, 0.9, 0.4, 1)
-visible = false
 
 [node name="Rell" type="Area2D" parent="NPCs"]
 position = Vector2(120, 180)
@@ -144,25 +180,21 @@ npc_id = "rell"
 intro_dialogue_id = "rell_intro"
 enabled = false
 
-[node name="Visual" type="ColorRect" parent="NPCs/Rell"]
-offset_left = -8.0
-offset_top = -16.0
-offset_right = 8.0
-offset_bottom = 0.0
-color = Color(0.78, 0.66, 0.42, 1)
+[node name="Sprite" type="Sprite2D" parent="NPCs/Rell"]
+texture = ExtResource("7_rell")
+offset = Vector2(0, -8)
 
 [node name="Shape" type="CollisionShape2D" parent="NPCs/Rell"]
 shape = SubResource("RectangleShape2D_npc")
 
 [node name="Prompt" type="Label" parent="NPCs/Rell"]
-offset_left = -16.0
-offset_top = -32.0
-offset_right = 16.0
-offset_bottom = -16.0
-text = "E"
+offset_left = -24.0
+offset_top = -36.0
+offset_right = 24.0
+offset_bottom = -20.0
+text = "Rell"
 horizontal_alignment = 1
 modulate = Color(1, 0.9, 0.4, 1)
-visible = false
 
 [node name="Lina" type="Area2D" parent="NPCs"]
 position = Vector2(360, 180)
@@ -172,23 +204,18 @@ npc_id = "lina"
 intro_dialogue_id = "lina_intro"
 enabled = false
 
-[node name="Visual" type="ColorRect" parent="NPCs/Lina"]
-offset_left = -8.0
-offset_top = -16.0
-offset_right = 8.0
-offset_bottom = 0.0
-color = Color(0.66, 0.94, 0.78, 1)
+[node name="Sprite" type="Sprite2D" parent="NPCs/Lina"]
+texture = ExtResource("8_lina")
+offset = Vector2(0, -8)
 
 [node name="Shape" type="CollisionShape2D" parent="NPCs/Lina"]
 shape = SubResource("RectangleShape2D_npc")
 
 [node name="Prompt" type="Label" parent="NPCs/Lina"]
-offset_left = -16.0
-offset_top = -32.0
-offset_right = 16.0
-offset_bottom = -16.0
-text = "E"
+offset_left = -24.0
+offset_top = -36.0
+offset_right = 24.0
+offset_bottom = -20.0
+text = "Lina"
 horizontal_alignment = 1
 modulate = Color(1, 0.9, 0.4, 1)
-visible = false
-

@@ -37,11 +37,21 @@ theme_override_constants/separation = 12
 alignment = 1
 
 [node name="Title" type="Label" parent="VBoxContainer"]
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.08, 1)
+theme_override_constants/outline_size = 2
+clip_text = true
 layout_mode = 2
 text = "NGƯỜI DỊCH GIẤC MƠ"
 horizontal_alignment = 1
 
 [node name="Subtitle" type="Label" parent="VBoxContainer"]
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.08, 1)
+theme_override_constants/outline_size = 2
+clip_text = true
 layout_mode = 2
 text = "Dream Awakening"
 horizontal_alignment = 1
@@ -52,14 +62,23 @@ custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 
 [node name="StartButton" type="Button" parent="VBoxContainer"]
+theme_override_font_sizes/font_size = 9
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+custom_minimum_size = Vector2(120, 24)
 layout_mode = 2
 text = "Bắt đầu"
 
 [node name="ContinueButton" type="Button" parent="VBoxContainer"]
+theme_override_font_sizes/font_size = 9
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+custom_minimum_size = Vector2(120, 24)
 layout_mode = 2
 text = "Tiếp tục"
 
 [node name="QuitButton" type="Button" parent="VBoxContainer"]
+theme_override_font_sizes/font_size = 9
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+custom_minimum_size = Vector2(120, 24)
 layout_mode = 2
 text = "Thoát"
 

@@ -7,6 +7,11 @@ layer = 16
 script = ExtResource("1_hud")
 
 [node name="ObjectiveLabel" type="Label" parent="."]
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.08, 1)
+theme_override_constants/outline_size = 2
+clip_text = true
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 320.0
@@ -15,6 +20,11 @@ text = ""
 modulate = Color(1, 0.92, 0.7, 1)
 
 [node name="NotebookHint" type="Label" parent="."]
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.08, 1)
+theme_override_constants/outline_size = 2
+clip_text = true
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -120.0

@@ -27,17 +27,31 @@ theme_override_constants/separation = 10
 alignment = 1
 
 [node name="Title" type="Label" parent="VBoxContainer"]
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.08, 1)
+theme_override_constants/outline_size = 2
+clip_text = true
 text = "Tạm dừng"
 horizontal_alignment = 1
 modulate = Color(1, 0.9, 0.5, 1)
 
 [node name="ResumeButton" type="Button" parent="VBoxContainer"]
+theme_override_font_sizes/font_size = 9
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+custom_minimum_size = Vector2(120, 24)
 text = "Tiếp tục"
 
 [node name="SaveButton" type="Button" parent="VBoxContainer"]
+theme_override_font_sizes/font_size = 9
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+custom_minimum_size = Vector2(120, 24)
 text = "Lưu game"
 
 [node name="QuitButton" type="Button" parent="VBoxContainer"]
+theme_override_font_sizes/font_size = 9
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+custom_minimum_size = Vector2(120, 24)
 text = "Thoát"
 
 [connection signal="pressed" from="VBoxContainer/ResumeButton" to="." method="_on_resume_pressed"]

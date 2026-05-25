@@ -30,6 +30,7 @@ InventoryManager="*res://scripts/autoload/InventoryManager.gd"
 DreamStateManager="*res://scripts/autoload/DreamStateManager.gd"
 SaveManager="*res://scripts/autoload/SaveManager.gd"
 AudioManager="*res://scripts/autoload/AudioManager.gd"
+LucidityManager="*res://scripts/autoload/LucidityManager.gd"
 
 [display]
 

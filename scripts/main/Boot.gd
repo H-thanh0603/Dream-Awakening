@@ -10,7 +10,8 @@ func _ready() -> void:
 		"res://scenes/ui/PauseMenu.tscn",
 		"res://scenes/ui/Notebook.tscn",
 		"res://scenes/ui/InventoryBar.tscn",
-		"res://scenes/ui/HUD.tscn"
+		"res://scenes/ui/HUD.tscn",
+		"res://scenes/ui/LucidityHUD.tscn"
 	]
 	for s in ui_scenes:
 		var packed: PackedScene = load(s)

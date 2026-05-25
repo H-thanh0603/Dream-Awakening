@@ -60,7 +60,7 @@ limit_bottom = 270
 [node name="Clock" type="Sprite2D" parent="Decorations"]
 texture = ExtResource("14_clock")
 position = Vector2(240, 30)
-scale = Vector2(2, 2)
+scale = Vector2(0.85, 0.85)
 
 [node name="Blackboard" type="Area2D" parent="."]
 position = Vector2(120, 80)
@@ -70,10 +70,16 @@ slot_id = "blackboard"
 accepts_items = ["eraser"]
 [node name="Sprite" type="Sprite2D" parent="Blackboard"]
 texture = ExtResource("7_board")
-scale = Vector2(2, 2)
+scale = Vector2(0.85, 0.85)
 [node name="Shape" type="CollisionShape2D" parent="Blackboard"]
 shape = SubResource("Shape_obj")
 [node name="Label" type="Label" parent="Blackboard"]
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.08, 1)
+theme_override_constants/outline_size = 2
+clip_text = true
+visible = false
 offset_left = -40.0
 offset_top = -28.0
 offset_right = 40.0
@@ -82,6 +88,12 @@ text = "Bảng đen"
 horizontal_alignment = 1
 modulate = Color(0.85, 0.95, 0.85, 0.9)
 [node name="Prompt" type="Label" parent="Blackboard"]
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.08, 1)
+theme_override_constants/outline_size = 2
+clip_text = true
+autowrap_mode = 2
 offset_left = -56.0
 offset_top = 18.0
 offset_right = 56.0
@@ -89,7 +101,6 @@ offset_bottom = 32.0
 text = "E - Xoá dấu ="
 horizontal_alignment = 1
 modulate = Color(1, 0.9, 0.4, 1)
-visible = false
 
 [node name="EraserPickup" type="Area2D" parent="."]
 position = Vector2(60, 80)
@@ -98,10 +109,16 @@ prompt_text = "E - Cục tẩy"
 item_id = "eraser"
 [node name="Sprite" type="Sprite2D" parent="EraserPickup"]
 texture = ExtResource("8_eraser")
-scale = Vector2(1.5, 1.5)
+scale = Vector2(0.85, 0.85)
 [node name="Shape" type="CollisionShape2D" parent="EraserPickup"]
 shape = SubResource("Shape_obj")
 [node name="Label" type="Label" parent="EraserPickup"]
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.08, 1)
+theme_override_constants/outline_size = 2
+clip_text = true
+visible = false
 offset_left = -32.0
 offset_top = -22.0
 offset_right = 32.0
@@ -110,6 +127,12 @@ text = "Cục tẩy"
 horizontal_alignment = 1
 modulate = Color(1, 0.85, 0.9, 1)
 [node name="Prompt" type="Label" parent="EraserPickup"]
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.08, 1)
+theme_override_constants/outline_size = 2
+clip_text = true
+autowrap_mode = 2
 offset_left = -36.0
 offset_top = 14.0
 offset_right = 36.0
@@ -117,7 +140,6 @@ offset_bottom = 28.0
 text = "E - Nhặt"
 horizontal_alignment = 1
 modulate = Color(1, 0.9, 0.4, 1)
-visible = false
 
 [node name="PapersArea" type="Node2D" parent="."]
 [node name="Papers" type="Node2D" parent="PapersArea"]
@@ -130,7 +152,7 @@ item_id = "fake_paper_1"
 enabled = false
 [node name="Sprite" type="Sprite2D" parent="PapersArea/Papers/Paper1"]
 texture = ExtResource("6_paper")
-scale = Vector2(1.5, 1.5)
+scale = Vector2(0.85, 0.85)
 [node name="Shape" type="CollisionShape2D" parent="PapersArea/Papers/Paper1"]
 shape = SubResource("Shape_obj")
 
@@ -142,11 +164,17 @@ item_id = "theo_real_paper"
 enabled = false
 [node name="Sprite" type="Sprite2D" parent="PapersArea/Papers/Paper2"]
 texture = ExtResource("6_paper")
-scale = Vector2(1.5, 1.5)
+scale = Vector2(0.85, 0.85)
 modulate = Color(1, 1, 0.7, 1)
 [node name="Shape" type="CollisionShape2D" parent="PapersArea/Papers/Paper2"]
 shape = SubResource("Shape_obj")
 [node name="HintLabel" type="Label" parent="PapersArea/Papers/Paper2"]
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.08, 1)
+theme_override_constants/outline_size = 2
+clip_text = true
+visible = false
 offset_left = -36.0
 offset_top = -22.0
 offset_right = 36.0
@@ -163,7 +191,7 @@ item_id = "fake_paper_2"
 enabled = false
 [node name="Sprite" type="Sprite2D" parent="PapersArea/Papers/Paper3"]
 texture = ExtResource("6_paper")
-scale = Vector2(1.5, 1.5)
+scale = Vector2(0.85, 0.85)
 [node name="Shape" type="CollisionShape2D" parent="PapersArea/Papers/Paper3"]
 shape = SubResource("Shape_obj")
 
@@ -172,12 +200,12 @@ shape = SubResource("Shape_obj")
 [node name="WindowLocked" type="Sprite2D" parent="WindowArea"]
 texture = ExtResource("9_winl")
 position = Vector2(400, 90)
-scale = Vector2(1.5, 1.5)
+scale = Vector2(0.85, 0.85)
 
 [node name="WindowOpen" type="Sprite2D" parent="WindowArea"]
 texture = ExtResource("10_wino")
 position = Vector2(400, 90)
-scale = Vector2(1.5, 1.5)
+scale = Vector2(0.85, 0.85)
 
 [node name="Locks" type="Node2D" parent="WindowArea"]
 
@@ -192,6 +220,12 @@ texture = ExtResource("11_lock")
 [node name="Shape" type="CollisionShape2D" parent="WindowArea/Locks/Lock1"]
 shape = SubResource("Shape_obj")
 [node name="Label" type="Label" parent="WindowArea/Locks/Lock1"]
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.08, 1)
+theme_override_constants/outline_size = 2
+clip_text = true
+visible = false
 offset_left = -36.0
 offset_top = 12.0
 offset_right = 36.0
@@ -211,6 +245,12 @@ texture = ExtResource("11_lock")
 [node name="Shape" type="CollisionShape2D" parent="WindowArea/Locks/Lock2"]
 shape = SubResource("Shape_obj")
 [node name="Label" type="Label" parent="WindowArea/Locks/Lock2"]
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.08, 1)
+theme_override_constants/outline_size = 2
+clip_text = true
+visible = false
 offset_left = -36.0
 offset_top = 12.0
 offset_right = 36.0
@@ -230,6 +270,12 @@ texture = ExtResource("11_lock")
 [node name="Shape" type="CollisionShape2D" parent="WindowArea/Locks/Lock3"]
 shape = SubResource("Shape_obj")
 [node name="Label" type="Label" parent="WindowArea/Locks/Lock3"]
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.08, 1)
+theme_override_constants/outline_size = 2
+clip_text = true
+visible = false
 offset_left = -36.0
 offset_top = 12.0
 offset_right = 36.0
@@ -306,10 +352,16 @@ item_id = "paper_plane_stack"
 enabled = false
 [node name="Sprite" type="Sprite2D" parent="RitualPlanePickup"]
 texture = ExtResource("12_plane")
-scale = Vector2(1.5, 1.5)
+scale = Vector2(0.85, 0.85)
 [node name="Shape" type="CollisionShape2D" parent="RitualPlanePickup"]
 shape = SubResource("Shape_obj")
 [node name="Label" type="Label" parent="RitualPlanePickup"]
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.08, 1)
+theme_override_constants/outline_size = 2
+clip_text = true
+visible = false
 offset_left = -48.0
 offset_top = -22.0
 offset_right = 48.0
@@ -325,11 +377,17 @@ prompt_text = "E - Bước qua cửa tỉnh mộng"
 enabled = false
 [node name="Sprite" type="Sprite2D" parent="RitualDoor"]
 texture = ExtResource("13_door")
-scale = Vector2(1.5, 1.5)
+scale = Vector2(0.85, 0.85)
 modulate = Color(1, 0.95, 0.6, 1)
 [node name="Shape" type="CollisionShape2D" parent="RitualDoor"]
 shape = SubResource("Shape_obj")
 [node name="Label" type="Label" parent="RitualDoor"]
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.08, 1)
+theme_override_constants/outline_size = 2
+clip_text = true
+visible = false
 offset_left = -40.0
 offset_top = -36.0
 offset_right = 40.0
@@ -348,6 +406,11 @@ offset_top = 8.0
 offset_right = -8.0
 offset_bottom = 32.0
 [node name="StepLabel" type="Label" parent="HintHUD/StepBox"]
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.08, 1)
+theme_override_constants/outline_size = 2
+clip_text = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 6.0

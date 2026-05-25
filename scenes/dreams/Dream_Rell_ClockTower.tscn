@@ -66,12 +66,12 @@ limit_bottom = 270
 [node name="Broken" type="Sprite2D" parent="CenterClock"]
 texture = ExtResource("6_clkb")
 position = Vector2(240, 80)
-scale = Vector2(2, 2)
+scale = Vector2(0.85, 0.85)
 
 [node name="Fixed" type="Sprite2D" parent="CenterClock"]
 texture = ExtResource("7_clkf")
 position = Vector2(240, 80)
-scale = Vector2(2, 2)
+scale = Vector2(0.85, 0.85)
 visible = false
 
 [node name="Slots" type="Node2D" parent="CenterClock"]
@@ -146,7 +146,7 @@ prompt_text = "E - Bánh răng đồng"
 item_id = "gear_brass"
 [node name="Sprite" type="Sprite2D" parent="GearsArea/Gears/Gear1"]
 texture = ExtResource("8_g1")
-scale = Vector2(1.5, 1.5)
+scale = Vector2(0.85, 0.85)
 [node name="Shape" type="CollisionShape2D" parent="GearsArea/Gears/Gear1"]
 shape = SubResource("Shape_obj")
 
@@ -157,7 +157,7 @@ prompt_text = "E - Bánh răng sắt"
 item_id = "gear_iron"
 [node name="Sprite" type="Sprite2D" parent="GearsArea/Gears/Gear2"]
 texture = ExtResource("9_g2")
-scale = Vector2(1.5, 1.5)
+scale = Vector2(0.85, 0.85)
 [node name="Shape" type="CollisionShape2D" parent="GearsArea/Gears/Gear2"]
 shape = SubResource("Shape_obj")
 
@@ -168,7 +168,7 @@ prompt_text = "E - Bánh răng vàng"
 item_id = "gear_gold"
 [node name="Sprite" type="Sprite2D" parent="GearsArea/Gears/Gear3"]
 texture = ExtResource("10_g3")
-scale = Vector2(1.5, 1.5)
+scale = Vector2(0.85, 0.85)
 [node name="Shape" type="CollisionShape2D" parent="GearsArea/Gears/Gear3"]
 shape = SubResource("Shape_obj")
 
@@ -180,10 +180,16 @@ prompt_text = "E - Lá thư cũ"
 item_id = "old_letter"
 [node name="Sprite" type="Sprite2D" parent="LetterArea/Letter"]
 texture = ExtResource("11_letter")
-scale = Vector2(1.5, 1.5)
+scale = Vector2(0.85, 0.85)
 [node name="Shape" type="CollisionShape2D" parent="LetterArea/Letter"]
 shape = SubResource("Shape_obj")
 [node name="Label" type="Label" parent="LetterArea/Letter"]
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.08, 1)
+theme_override_constants/outline_size = 2
+clip_text = true
+visible = false
 offset_left = -40.0
 offset_top = -22.0
 offset_right = 40.0
@@ -203,6 +209,12 @@ texture = ExtResource("15_lu")
 [node name="Shape" type="CollisionShape2D" parent="LampPickup"]
 shape = SubResource("Shape_obj")
 [node name="Label" type="Label" parent="LampPickup"]
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.08, 1)
+theme_override_constants/outline_size = 2
+clip_text = true
+visible = false
 offset_left = -32.0
 offset_top = -28.0
 offset_right = 32.0
@@ -222,6 +234,12 @@ texture = ExtResource("17_hand")
 [node name="Shape" type="CollisionShape2D" parent="RitualHandPickup"]
 shape = SubResource("Shape_obj")
 [node name="Label" type="Label" parent="RitualHandPickup"]
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.08, 1)
+theme_override_constants/outline_size = 2
+clip_text = true
+visible = false
 offset_left = -36.0
 offset_top = -22.0
 offset_right = 36.0
@@ -239,6 +257,12 @@ texture = ExtResource("12_dpast")
 [node name="Shape" type="CollisionShape2D" parent="PastDoor"]
 shape = SubResource("Shape_big")
 [node name="Label" type="Label" parent="PastDoor"]
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.08, 1)
+theme_override_constants/outline_size = 2
+clip_text = true
+visible = false
 offset_left = -48.0
 offset_top = -36.0
 offset_right = 48.0
@@ -275,6 +299,12 @@ shape = SubResource("Shape_obj")
 [node name="Shape" type="CollisionShape2D" parent="ForwardDoor"]
 shape = SubResource("Shape_big")
 [node name="Label" type="Label" parent="ForwardDoor"]
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.08, 1)
+theme_override_constants/outline_size = 2
+clip_text = true
+visible = false
 offset_left = -56.0
 offset_top = -40.0
 offset_right = 56.0
@@ -293,6 +323,11 @@ offset_top = 8.0
 offset_right = -8.0
 offset_bottom = 32.0
 [node name="StepLabel" type="Label" parent="HintHUD/StepBox"]
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.08, 1)
+theme_override_constants/outline_size = 2
+clip_text = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 6.0

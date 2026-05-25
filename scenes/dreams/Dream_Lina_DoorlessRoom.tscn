@@ -66,7 +66,7 @@ limit_bottom = 270
 [node name="EmptyChair" type="Sprite2D" parent="."]
 texture = ExtResource("18_chair")
 position = Vector2(180, 220)
-scale = Vector2(1.5, 1.5)
+scale = Vector2(0.85, 0.85)
 modulate = Color(1, 1, 1, 0.8)
 
 [node name="LinaInDream" type="Area2D" parent="."]
@@ -76,6 +76,12 @@ texture = ExtResource("19_lina")
 offset = Vector2(0, -8)
 modulate = Color(0.95, 0.95, 1, 0.8)
 [node name="Label" type="Label" parent="LinaInDream"]
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.08, 1)
+theme_override_constants/outline_size = 2
+clip_text = true
+visible = false
 offset_left = -20.0
 offset_top = -32.0
 offset_right = 20.0
@@ -91,17 +97,23 @@ prompt_text = "E - Tắt hộp nhạc"
 
 [node name="Playing" type="Sprite2D" parent="MusicBox"]
 texture = ExtResource("6_mp")
-scale = Vector2(2, 2)
+scale = Vector2(0.85, 0.85)
 
 [node name="Silent" type="Sprite2D" parent="MusicBox"]
 texture = ExtResource("7_ms")
-scale = Vector2(2, 2)
+scale = Vector2(0.85, 0.85)
 visible = false
 
 [node name="Shape" type="CollisionShape2D" parent="MusicBox"]
 shape = SubResource("Shape_obj")
 
 [node name="Label" type="Label" parent="MusicBox"]
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.08, 1)
+theme_override_constants/outline_size = 2
+clip_text = true
+visible = false
 offset_left = -40.0
 offset_top = -28.0
 offset_right = 40.0
@@ -121,10 +133,16 @@ prompt_text = "E - Lật khung 1"
 item_id = "frame_smile"
 [node name="Sprite" type="Sprite2D" parent="FramesArea/Frames/FrameSmile"]
 texture = ExtResource("8_ff")
-scale = Vector2(1.5, 1.5)
+scale = Vector2(0.85, 0.85)
 [node name="Shape" type="CollisionShape2D" parent="FramesArea/Frames/FrameSmile"]
 shape = SubResource("Shape_obj")
 [node name="Label" type="Label" parent="FramesArea/Frames/FrameSmile"]
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.08, 1)
+theme_override_constants/outline_size = 2
+clip_text = true
+visible = false
 offset_left = -32.0
 offset_top = 14.0
 offset_right = 32.0
@@ -140,10 +158,16 @@ prompt_text = "E - Lật khung 2"
 item_id = "frame_alone"
 [node name="Sprite" type="Sprite2D" parent="FramesArea/Frames/FrameAlone"]
 texture = ExtResource("8_ff")
-scale = Vector2(1.5, 1.5)
+scale = Vector2(0.85, 0.85)
 [node name="Shape" type="CollisionShape2D" parent="FramesArea/Frames/FrameAlone"]
 shape = SubResource("Shape_obj")
 [node name="Label" type="Label" parent="FramesArea/Frames/FrameAlone"]
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.08, 1)
+theme_override_constants/outline_size = 2
+clip_text = true
+visible = false
 offset_left = -32.0
 offset_top = 14.0
 offset_right = 32.0
@@ -159,10 +183,16 @@ prompt_text = "E - Lật khung 3"
 item_id = "frame_phone"
 [node name="Sprite" type="Sprite2D" parent="FramesArea/Frames/FramePhone"]
 texture = ExtResource("8_ff")
-scale = Vector2(1.5, 1.5)
+scale = Vector2(0.85, 0.85)
 [node name="Shape" type="CollisionShape2D" parent="FramesArea/Frames/FramePhone"]
 shape = SubResource("Shape_obj")
 [node name="Label" type="Label" parent="FramesArea/Frames/FramePhone"]
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.08, 1)
+theme_override_constants/outline_size = 2
+clip_text = true
+visible = false
 offset_left = -32.0
 offset_top = 14.0
 offset_right = 32.0
@@ -178,10 +208,16 @@ prompt_text = "E - Lật khung 4"
 item_id = "frame_knock"
 [node name="Sprite" type="Sprite2D" parent="FramesArea/Frames/FrameKnock"]
 texture = ExtResource("8_ff")
-scale = Vector2(1.5, 1.5)
+scale = Vector2(0.85, 0.85)
 [node name="Shape" type="CollisionShape2D" parent="FramesArea/Frames/FrameKnock"]
 shape = SubResource("Shape_obj")
 [node name="Label" type="Label" parent="FramesArea/Frames/FrameKnock"]
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.08, 1)
+theme_override_constants/outline_size = 2
+clip_text = true
+visible = false
 offset_left = -32.0
 offset_top = 14.0
 offset_right = 32.0
@@ -207,6 +243,12 @@ color = Color(0.7, 0.7, 0.75, 1)
 [node name="Shape" type="CollisionShape2D" parent="FramesArea/Slots/Slot1"]
 shape = SubResource("Shape_obj")
 [node name="Label" type="Label" parent="FramesArea/Slots/Slot1"]
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.08, 1)
+theme_override_constants/outline_size = 2
+clip_text = true
+visible = false
 offset_left = -28.0
 offset_top = -22.0
 offset_right = 28.0
@@ -230,6 +272,12 @@ color = Color(0.7, 0.7, 0.75, 1)
 [node name="Shape" type="CollisionShape2D" parent="FramesArea/Slots/Slot2"]
 shape = SubResource("Shape_obj")
 [node name="Label" type="Label" parent="FramesArea/Slots/Slot2"]
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.08, 1)
+theme_override_constants/outline_size = 2
+clip_text = true
+visible = false
 offset_left = -32.0
 offset_top = -22.0
 offset_right = 32.0
@@ -253,6 +301,12 @@ color = Color(0.7, 0.7, 0.75, 1)
 [node name="Shape" type="CollisionShape2D" parent="FramesArea/Slots/Slot3"]
 shape = SubResource("Shape_obj")
 [node name="Label" type="Label" parent="FramesArea/Slots/Slot3"]
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.08, 1)
+theme_override_constants/outline_size = 2
+clip_text = true
+visible = false
 offset_left = -32.0
 offset_top = -22.0
 offset_right = 32.0
@@ -276,6 +330,12 @@ color = Color(0.7, 0.7, 0.75, 1)
 [node name="Shape" type="CollisionShape2D" parent="FramesArea/Slots/Slot4"]
 shape = SubResource("Shape_obj")
 [node name="Label" type="Label" parent="FramesArea/Slots/Slot4"]
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.08, 1)
+theme_override_constants/outline_size = 2
+clip_text = true
+visible = false
 offset_left = -36.0
 offset_top = -22.0
 offset_right = 36.0
@@ -289,12 +349,12 @@ modulate = Color(0.6, 0.5, 0.5, 0.9)
 [node name="CurtainClosed" type="Sprite2D" parent="WallArea"]
 texture = ExtResource("13_cc")
 position = Vector2(380, 160)
-scale = Vector2(1.5, 1.5)
+scale = Vector2(0.85, 0.85)
 
 [node name="CurtainOpen" type="Sprite2D" parent="WallArea"]
 texture = ExtResource("14_co")
 position = Vector2(380, 160)
-scale = Vector2(1.5, 1.5)
+scale = Vector2(0.85, 0.85)
 visible = false
 
 [node name="DoorInner" type="Sprite2D" parent="WallArea"]
@@ -317,6 +377,12 @@ enabled = false
 [node name="Shape" type="CollisionShape2D" parent="CurtainPull"]
 shape = SubResource("Shape_big")
 [node name="Label" type="Label" parent="CurtainPull"]
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.08, 1)
+theme_override_constants/outline_size = 2
+clip_text = true
+visible = false
 offset_left = -28.0
 offset_top = 26.0
 offset_right = 28.0
@@ -333,10 +399,16 @@ item_id = "lina_key"
 enabled = false
 [node name="Sprite" type="Sprite2D" parent="KeyPickup"]
 texture = ExtResource("17_key")
-scale = Vector2(1.5, 1.5)
+scale = Vector2(0.85, 0.85)
 [node name="Shape" type="CollisionShape2D" parent="KeyPickup"]
 shape = SubResource("Shape_obj")
 [node name="Label" type="Label" parent="KeyPickup"]
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.08, 1)
+theme_override_constants/outline_size = 2
+clip_text = true
+visible = false
 offset_left = -36.0
 offset_top = -22.0
 offset_right = 36.0
@@ -363,6 +435,11 @@ offset_top = 8.0
 offset_right = -8.0
 offset_bottom = 32.0
 [node name="StepLabel" type="Label" parent="HintHUD/StepBox"]
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(1, 0.96, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.08, 1)
+theme_override_constants/outline_size = 2
+clip_text = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 6.0

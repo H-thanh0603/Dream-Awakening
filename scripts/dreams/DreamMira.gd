@@ -1,171 +1,198 @@
 extends Node2D
 ##
-## DreamMira — Màn 1: Phòng gương méo.
-## GDD §10.1, IMPLEMENTATION_PLAN T3.1-T3.9
-##
-## Layout:
-##   [Phòng trung tâm] - puzzle hoa
-##   [Khu gương vỡ]    - puzzle 1: 3 mảnh gương
-##   [Khu tranh ký ức] - puzzle 2: 4 mảnh ký ức
-##   [Khu vườn hoa héo]- puzzle 3: làm hoa nở
-##   [Gương thật + cửa]- ritual + exit
+## DreamMira — main controller for the 4-room redesign.
+## Rooms 1..4 in same world; camera follows player.
+## Lucidity collapse → restore at last save point.
 ##
 
 @onready var step_label: Label = $HintHUD/StepBox/StepLabel
 @onready var memory_label: Label = $HintHUD/MemoryBox/MemoryLabel
-@onready var mirror_warped: Sprite2D = $CenterRoom/MirrorWarped
-@onready var mirror_real: Sprite2D = $CenterRoom/MirrorReal
-@onready var flower_wilted: Sprite2D = $FlowerArea/FlowerWilted
-@onready var flower_bloomed: Sprite2D = $FlowerArea/FlowerBloomed
-@onready var ritual_door: Area2D = $RitualDoor
-@onready var mira_npc: Area2D = $MiraInDream
-@onready var mask: Area2D = $RitualMask
-@onready var background: ColorRect = $Background
+@onready var camera: Camera2D = $Player/Camera2D
+@onready var player: CharacterBody2D = $Player
 
-var memories_collected: Array[String] = []
-var ritual_active: bool = false
+var _last_save_pos: Vector2 = Vector2(60, 200)
+var _memory_count: int = 0
+const TOTAL_MEMORIES: int = 4
+
+# Door references (door blocks set in _ready by name)
+var _door_r1_r2: Node2D
+var _door_r2_r3: Node2D
+var _door_r3_r4: Node2D
 
 func _ready() -> void:
 	GameState.set_state("DREAM_EXPLORE")
 	GameState.current_dream_id = "mira"
-	NotebookManager.set_objective("Tìm 3 mảnh gương thật để sửa gương méo.")
-	_set_step("Khám phá phòng gương — tìm 3 mảnh gương")
-	_update_memory_label()
-	# Wire interactions
-	for shard in $MirrorArea/Shards.get_children():
-		shard.interacted.connect(_on_shard_picked.bind(shard))
-	for mem in $MemoryArea/Memories.get_children():
-		mem.interacted.connect(_on_memory_picked.bind(mem))
-	$CenterRoom/MirrorWarpedSlot.item_placed.connect(_on_shard_placed)
-	# Flower puzzle slots
-	$FlowerArea/LightSlot.item_placed.connect(_on_essence_placed.bind("light"))
-	$FlowerArea/MemorySlot.item_placed.connect(_on_essence_placed.bind("memory_essence"))
-	$FlowerArea/WaterSlot.item_placed.connect(_on_essence_placed.bind("water"))
-	# Ritual: mask + door
-	mask.interacted.connect(_on_mask_interact)
-	ritual_door.interacted.connect(_on_ritual_door)
-	# Listen for puzzle complete
-	GameState.flag_changed.connect(_on_flag_changed)
-	# Hide things
-	mirror_real.visible = false
-	flower_bloomed.visible = false
-	ritual_door.enabled = false
-	mask.enabled = false
-	# Intro narration
-	await get_tree().create_timer(0.5).timeout
-	DialogueManager.play("mira_intro_dream") if DialogueManager._dialogues.has("mira_intro_dream") else _set_step("Tìm 3 mảnh gương")
+	LucidityManager.enable()
+	LucidityManager.collapsed.connect(_on_collapsed)
+	NotebookManager.set_objective("Sống sót khỏi giấc mơ của Mira.")
+	_set_step("R1: Đẩy 2 hộp lên 2 nút sáng cùng lúc")
 
-func _set_step(text: String) -> void:
+	# Camera limits will be set by _update_camera_for_room()
+	player.position = Vector2(60, 200)
+	_last_save_pos = player.position
+	_update_camera_for_room()
+
+	# Wire save points
+	for sp in get_tree().get_nodes_in_group("mira_savepoint"):
+		if sp.has_signal("activated"):
+			sp.activated.connect(_on_save_activated)
+
+	# Wire pressure plates of room 1
+	var plate_a: Area2D = $Room1/PlateA
+	var plate_b: Area2D = $Room1/PlateB
+	plate_a.pressed.connect(_check_room1_solved)
+	plate_a.released.connect(_check_room1_solved)
+	plate_b.pressed.connect(_check_room1_solved)
+	plate_b.released.connect(_check_room1_solved)
+
+	# Doors
+	_door_r1_r2 = $Doors/DoorR1R2
+	_door_r2_r3 = $Doors/DoorR2R3
+	_door_r3_r4 = $Doors/DoorR3R4
+
+	# Memories (room 2) wired
+	for mem in $Room2/Memories.get_children():
+		if mem.has_signal("interacted"):
+			mem.interacted.connect(_on_memory_picked.bind(mem))
+
+	# Essences (room 3) order check
+	$Room3/WaterSlot.item_placed.connect(_on_essence_placed.bind("water"))
+	$Room3/LightSlot.item_placed.connect(_on_essence_placed.bind("light"))
+	$Room3/MemorySlot.item_placed.connect(_on_essence_placed.bind("memory_essence"))
+
+	# Boss (room 4) — wired by sub-script BossMask.gd
+
+	# Reset memory label
+	_update_memory_label()
+
+	await get_tree().create_timer(0.6).timeout
+	DialogueManager.play("mira_intro_dream") if DialogueManager._dialogues.has("mira_intro_dream") else null
+
+func _set_step(t: String) -> void:
 	if step_label:
-		step_label.text = text
+		step_label.text = t
 
 func _update_memory_label() -> void:
 	if memory_label:
-		memory_label.text = "Ký ức: %d/4   Mảnh gương: %d/3" % [memories_collected.size(), _count_shards_placed()]
+		memory_label.text = "Ký ức: %d/4" % _memory_count
 
-var _shards_placed: int = 0
+func _process(_delta: float) -> void:
+	_update_camera_for_room()
 
-func _count_shards_placed() -> int:
-	return _shards_placed
+func _update_camera_for_room() -> void:
+	# Snap camera limits to whichever quadrant the player is in
+	var p: Vector2 = player.position
+	var qx: int = 0 if p.x < 480 else 1
+	var qy: int = 0 if p.y < 270 else 1
+	camera.limit_left = qx * 480
+	camera.limit_top = qy * 270
+	camera.limit_right = (qx + 1) * 480
+	camera.limit_bottom = (qy + 1) * 270
 
-func _on_shard_picked(_by, shard) -> void:
-	var shard_id: String = shard.item_id if "item_id" in shard else ""
-	if shard_id != "":
-		NotebookManager.set_objective("Đặt mảnh gương vào khung ở phòng trung tâm.")
-		_set_step("Đặt mảnh gương vào gương méo")
+func _on_save_activated(point) -> void:
+	_last_save_pos = point.global_position
+	NotebookManager.add_entry("HINT", "save_%s" % point.point_id, {"title_vi": "Đã ghi nhớ vị trí"})
 
-func _on_shard_placed(item_id: String) -> void:
-	_shards_placed += 1
-	_update_memory_label()
-	if _shards_placed >= 3:
-		GameState.set_flag("mira_mirror_repaired", true)
-		mirror_warped.visible = false
-		mirror_real.visible = true
-		$CenterRoom/MirrorWarpedSlot.enabled = false
-		$CenterRoom/MirrorWarpedSlot._hide_prompt()
-		NotebookManager.set_objective("Tìm 4 mảnh tranh ký ức về Mira.")
-		NotebookManager.add_entry("SYMBOL", "mirror_real", {
-			"title_vi": "Gương thật",
-			"description_vi": "Phản chiếu lại được hình em rồi."
-		})
-		DialogueManager.play("mira_mirror_done")
-		_set_step("Tìm 4 mảnh ký ức ở khu tranh")
-	else:
-		_set_step("Mảnh %d/3 đã đặt — tìm tiếp" % _shards_placed)
+func _on_collapsed() -> void:
+	# Mira fell unconscious. Reset to save.
+	DialogueManager.register_from_dict({
+		"id": "mira_collapse_%d" % Engine.get_process_frames(),
+		"lines": [{"speaker": "Mira", "text": "...em ngã rồi. Anh giúp em đứng dậy được không?"}]
+	})
+	player.position = _last_save_pos
+	LucidityManager.lucidity = 60.0
+	LucidityManager._drain_sources = 0
+	LucidityManager.lucidity_changed.emit(60.0)
+
+# === ROOM 1: Mirror Hallway ===
+
+var _room1_solved: bool = false
+
+func _check_room1_solved(_by = null) -> void:
+	if _room1_solved:
+		return
+	var plate_a: Area2D = $Room1/PlateA
+	var plate_b: Area2D = $Room1/PlateB
+	if plate_a.is_pressed() and plate_b.is_pressed():
+		_room1_solved = true
+		_open_door(_door_r1_r2)
+		GameState.set_flag("mira_room1_solved", true)
+		NotebookManager.set_objective("Cửa phía đông đã mở. Đến phòng ký ức.")
+		_set_step("Đến phòng ký ức (đông)")
+
+# === ROOM 2: Memories ===
 
 func _on_memory_picked(_by, mem) -> void:
 	var mid: String = mem.item_id if "item_id" in mem else ""
 	if mid == "":
 		return
-	if mid in memories_collected:
-		return
-	memories_collected.append(mid)
+	_memory_count += 1
+	LucidityManager.recover(20.0)
 	_update_memory_label()
-	NotebookManager.add_entry("MEMORY", mid, _memory_data(mid))
-	if memories_collected.size() >= 4:
-		GameState.set_flag("mira_memories_complete", true)
-		DialogueManager.play("mira_memories_done")
-		NotebookManager.set_objective("Mang ánh sáng, ký ức và nước đến chỗ hoa héo.")
-		_set_step("Đặt 3 yếu tố vào hoa héo")
-		# Spawn essence pickups
-		$FlowerArea/LightPickup.enabled = true
-		$FlowerArea/MemoryEssencePickup.enabled = true
-		$FlowerArea/WaterPickup.enabled = true
-	else:
-		_set_step("Ký ức %d/4 đã thu — tìm tiếp" % memories_collected.size())
+	if _memory_count >= TOTAL_MEMORIES:
+		GameState.set_flag("mira_room2_solved", true)
+		_open_door(_door_r2_r3)
+		NotebookManager.set_objective("Cửa phía nam đã mở. Đến vườn gương.")
+		_set_step("Đến vườn gương (nam) — chú ý thứ tự đặt!")
+		DialogueManager.play("mira_memories_done") if DialogueManager._dialogues.has("mira_memories_done") else null
 
-func _memory_data(mid: String) -> Dictionary:
-	var map := {
-		"mira_cat": {"title_vi": "Con mèo bị thương", "description_vi": "Em ngồi cả đêm bên nó."},
-		"mira_flower": {"title_vi": "Bông hoa cho bà cụ", "description_vi": "Bà cụ đã khóc."},
-		"mira_child": {"title_vi": "Đưa em bé về nhà", "description_vi": "Em bé đã cười."},
-		"mira_friend": {"title_vi": "Lắng nghe bạn khóc", "description_vi": "Em chỉ ngồi đó, không nói gì."}
-	}
-	return map.get(mid, {"title_vi": mid})
+# === ROOM 3: Mirror Garden — order matters: water → light → memory ===
 
-var _essences_placed: int = 0
+var _essence_order: Array[String] = []
 
-func _on_essence_placed(item_id: String, _placed_id: String = "") -> void:
-	_essences_placed += 1
-	if _essences_placed >= 3:
-		GameState.set_flag("mira_flower_bloomed", true)
-		flower_wilted.visible = false
-		flower_bloomed.visible = true
-		DialogueManager.play("mira_flower_done")
-		background.color = Color(0.18, 0.14, 0.26, 1)
-		_set_step("Đến gặp Mira ở phòng trung tâm")
-		NotebookManager.set_objective("Dẫn Mira đến gương thật. Đặt mặt nạ xuống.")
-		mask.enabled = true
-		mira_npc.modulate = Color(1, 0.95, 0.95, 1)
-
-func _on_mask_interact(_by) -> void:
-	if ritual_active:
+func _on_essence_placed(_item_id: String, slot_kind: String) -> void:
+	_essence_order.append(slot_kind)
+	var correct := ["water", "light", "memory_essence"]
+	var idx: int = _essence_order.size() - 1
+	if _essence_order[idx] != correct[idx]:
+		# WRONG ORDER — reset
+		DialogueManager.register_from_dict({
+			"id": "mira_order_wrong",
+			"lines": [{"speaker": "???", "text": "Sai thứ tự. Hoa khô lại. Hãy đọc lại lời nhắn ở phòng đầu."}]
+		})
+		DialogueManager.play("mira_order_wrong")
+		_essence_order.clear()
+		LucidityManager.damage(10.0)
+		# Re-enable all 3 slots (reset)
+		$Room3/WaterSlot.enabled = true
+		$Room3/LightSlot.enabled = true
+		$Room3/MemorySlot.enabled = true
+		# Respawn essences
+		$Room3/WaterPickup.visible = true
+		$Room3/WaterPickup.enabled = true
+		$Room3/LightPickup.visible = true
+		$Room3/LightPickup.enabled = true
+		$Room3/MemoryPickup.visible = true
+		$Room3/MemoryPickup.enabled = true
 		return
-	ritual_active = true
-	GameState.set_state("RITUAL_READY")
-	DialogueManager.play("mira_ritual")
-	# Mask falls
-	$RitualMask/Sprite.modulate = Color(1, 1, 1, 0.3)
-	# Listen for ritual dialogue end → enable door
-	DialogueManager.dialogue_ended.connect(_on_ritual_dialogue_ended, CONNECT_ONE_SHOT)
+	if _essence_order.size() >= 3:
+		# Correct order!
+		$Room3/FlowerWilted.visible = false
+		$Room3/FlowerBloomed.visible = true
+		GameState.set_flag("mira_room3_solved", true)
+		_open_door(_door_r3_r4)
+		DialogueManager.play("mira_flower_done") if DialogueManager._dialogues.has("mira_flower_done") else null
+		NotebookManager.set_objective("Cửa phía đông đã mở. Đối diện chính mình.")
+		_set_step("Boss: Bắt Mặt Nạ 4 lần ở 4 ô neo")
 
-func _on_ritual_dialogue_ended(dialogue_id: String) -> void:
-	if dialogue_id != "mira_ritual":
+func _open_door(door: Node2D) -> void:
+	if door == null:
 		return
-	ritual_door.enabled = true
-	_set_step("Bước qua cửa tỉnh mộng")
-	GameState.set_state("WAKE_UP")
+	door.visible = false
+	var coll: CollisionShape2D = door.get_node_or_null("Shape")
+	if coll:
+		coll.set_deferred("disabled", true)
 
-func _on_ritual_door(_by) -> void:
-	if not GameState.has_flag("mira_realized"):
-		return
+# === ROOM 4: Boss — Mira realized ===
+
+func on_boss_defeated() -> void:
+	GameState.set_flag("mira_realized", true)
+	DialogueManager.play("mira_ritual") if DialogueManager._dialogues.has("mira_ritual") else null
+	await get_tree().create_timer(0.5).timeout
+	# Wait for ritual dialogue end
+	if DialogueManager._active:
+		await DialogueManager.dialogue_ended
 	DreamStateManager.set_npc_state("mira", "AWAKE_CHANGED")
+	LucidityManager.disable()
 	GameState.set_state("EXPLORE_VILLAGE")
 	SceneLoader.fade_to("res://scenes/world/Village.tscn", 1.5)
-
-func _on_flag_changed(name: String, _val: bool) -> void:
-	if name == "mira_realized":
-		NotebookManager.add_entry("MEMORY", "mira_realization", {
-			"title_vi": "Khoảnh khắc Mira đặt mặt nạ xuống",
-			"description_vi": "Em vẫn còn sợ, nhưng em không muốn trốn nữa."
-		})

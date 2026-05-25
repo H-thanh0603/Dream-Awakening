@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b0village00001"]
+[gd_scene format=3 uid="uid://bwejqfnmjyvnk"]
 
 [ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="1_player"]
 [ext_resource type="Script" path="res://scripts/interaction/Interactable.gd" id="2_interactable"]

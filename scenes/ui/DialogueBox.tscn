@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://b0dlgbox000001"]
+[gd_scene format=3 uid="uid://behegt58jyvnk"]
 
 [ext_resource type="Script" path="res://scripts/ui/DialogueBox.gd" id="1_dlg"]
 

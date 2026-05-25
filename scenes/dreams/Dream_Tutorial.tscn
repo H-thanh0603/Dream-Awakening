@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b0tutorial00001"]
+[gd_scene load_steps=4 format=3 uid="uid://m2nnwml22exc"]
 
 [ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="1_player"]
 [ext_resource type="Script" path="res://scripts/interaction/Interactable.gd" id="2_interactable"]
@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://scripts/dreams/DreamTutorial.gd" id="6_script"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obj"]
-size = Vector2(20, 20)
+size = Vector2(28, 28)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
 size = Vector2(480, 16)
@@ -61,21 +61,30 @@ script = ExtResource("2_interactable")
 prompt_text = "E - Bật đèn"
 
 [node name="Visual" type="ColorRect" parent="Lamp"]
-offset_left = -8.0
-offset_top = -8.0
-offset_right = 8.0
-offset_bottom = 8.0
-color = Color(0.3, 0.3, 0.4, 1)
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+color = Color(0.4, 0.4, 0.45, 1)
+
+[node name="NameLabel" type="Label" parent="Lamp"]
+offset_left = -32.0
+offset_top = -28.0
+offset_right = 32.0
+offset_bottom = -12.0
+text = "Đèn"
+horizontal_alignment = 1
+modulate = Color(0.85, 0.85, 0.95, 1)
 
 [node name="Shape" type="CollisionShape2D" parent="Lamp"]
 shape = SubResource("RectangleShape2D_obj")
 
 [node name="Prompt" type="Label" parent="Lamp"]
-offset_left = -32.0
-offset_top = -28.0
-offset_right = 32.0
-offset_bottom = -10.0
-text = "E"
+offset_left = -48.0
+offset_top = 14.0
+offset_right = 48.0
+offset_bottom = 30.0
+text = "E - Bật đèn"
 horizontal_alignment = 1
 modulate = Color(1, 0.9, 0.4, 1)
 visible = false
@@ -88,21 +97,30 @@ item_id = "paper_clue"
 enabled = false
 
 [node name="Visual" type="ColorRect" parent="PaperClue"]
-offset_left = -6.0
-offset_top = -6.0
-offset_right = 6.0
-offset_bottom = 6.0
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
 color = Color(0.95, 0.92, 0.78, 1)
+
+[node name="NameLabel" type="Label" parent="PaperClue"]
+offset_left = -32.0
+offset_top = -26.0
+offset_right = 32.0
+offset_bottom = -10.0
+text = "Mảnh giấy"
+horizontal_alignment = 1
+modulate = Color(0.95, 0.92, 0.78, 1)
 
 [node name="Shape" type="CollisionShape2D" parent="PaperClue"]
 shape = SubResource("RectangleShape2D_obj")
 
 [node name="Prompt" type="Label" parent="PaperClue"]
-offset_left = -32.0
-offset_top = -24.0
-offset_right = 32.0
-offset_bottom = -8.0
-text = "E"
+offset_left = -48.0
+offset_top = 12.0
+offset_right = 48.0
+offset_bottom = 28.0
+text = "E - Nhặt giấy"
 horizontal_alignment = 1
 modulate = Color(1, 0.9, 0.4, 1)
 visible = false
@@ -114,21 +132,30 @@ prompt_text = "E - Đặt vào khung"
 slot_id = "EmptyFrame"
 
 [node name="Visual" type="ColorRect" parent="EmptyFrame"]
-offset_left = -10.0
-offset_top = -14.0
-offset_right = 10.0
-offset_bottom = 14.0
-color = Color(0.6, 0.45, 0.3, 1)
+offset_left = -12.0
+offset_top = -16.0
+offset_right = 12.0
+offset_bottom = 16.0
+color = Color(0.55, 0.4, 0.28, 1)
+
+[node name="NameLabel" type="Label" parent="EmptyFrame"]
+offset_left = -36.0
+offset_top = -30.0
+offset_right = 36.0
+offset_bottom = -14.0
+text = "Khung trống"
+horizontal_alignment = 1
+modulate = Color(0.9, 0.75, 0.55, 1)
 
 [node name="Shape" type="CollisionShape2D" parent="EmptyFrame"]
 shape = SubResource("RectangleShape2D_obj")
 
 [node name="Prompt" type="Label" parent="EmptyFrame"]
-offset_left = -32.0
-offset_top = -28.0
-offset_right = 32.0
-offset_bottom = -10.0
-text = "E"
+offset_left = -56.0
+offset_top = 18.0
+offset_right = 56.0
+offset_bottom = 34.0
+text = "E - Đặt vào khung"
 horizontal_alignment = 1
 modulate = Color(1, 0.9, 0.4, 1)
 visible = false
@@ -140,21 +167,30 @@ prompt_text = "E - Bước qua cửa"
 enabled = false
 
 [node name="Visual" type="ColorRect" parent="Door"]
-offset_left = -10.0
-offset_top = -16.0
-offset_right = 10.0
-offset_bottom = 16.0
-color = Color(0.4, 0.3, 0.25, 1)
+offset_left = -12.0
+offset_top = -18.0
+offset_right = 12.0
+offset_bottom = 18.0
+color = Color(0.32, 0.24, 0.2, 1)
+
+[node name="NameLabel" type="Label" parent="Door"]
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = -16.0
+text = "Cửa"
+horizontal_alignment = 1
+modulate = Color(0.6, 0.5, 0.4, 1)
 
 [node name="Shape" type="CollisionShape2D" parent="Door"]
 shape = SubResource("RectangleShape2D_obj")
 
 [node name="Prompt" type="Label" parent="Door"]
-offset_left = -40.0
-offset_top = -32.0
-offset_right = 40.0
-offset_bottom = -14.0
-text = "E"
+offset_left = -56.0
+offset_top = 20.0
+offset_right = 56.0
+offset_bottom = 36.0
+text = "E - Bước qua cửa"
 horizontal_alignment = 1
 modulate = Color(1, 0.9, 0.4, 1)
 visible = false
@@ -165,12 +201,42 @@ puzzle_id = "tutorial_paper"
 auto_start = true
 slot_paths = [NodePath("../EmptyFrame")]
 
-[node name="HintLabel" type="Label" parent="."]
+[node name="HintHUD" type="CanvasLayer" parent="."]
+layer = 8
+
+[node name="ControlsBox" type="Panel" parent="HintHUD"]
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
-offset_top = -56.0
-offset_right = 320.0
-offset_bottom = -40.0
-text = "WASD để đi · E để tương tác · Q để mở Sổ Mộng"
-modulate = Color(0.7, 0.7, 0.8, 1)
+offset_top = -32.0
+offset_right = 280.0
+offset_bottom = -8.0
+
+[node name="ControlsLabel" type="Label" parent="HintHUD/ControlsBox"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 4.0
+offset_right = -6.0
+offset_bottom = -4.0
+text = "WASD: đi · E: tương tác · Q: Sổ Mộng · Esc: tạm dừng"
+modulate = Color(0.85, 0.85, 0.95, 1)
+
+[node name="StepBox" type="Panel" parent="HintHUD"]
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -200.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = 32.0
+
+[node name="StepLabel" type="Label" parent="HintHUD/StepBox"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 4.0
+offset_right = -6.0
+offset_bottom = -4.0
+text = "B1: Đến gần Đèn rồi nhấn E"
+horizontal_alignment = 1
+modulate = Color(1, 0.92, 0.6, 1)

@@ -1,0 +1,20 @@
+{
+  "id": "mira_mirror_repair",
+  "type": "ordered_slots",
+  "scene": "Dream_Mira_MirrorRoom",
+  "required_items": [
+    "mirror_shard_1",
+    "mirror_shard_2",
+    "mirror_shard_3"
+  ],
+  "order_matters": true,
+  "correct_order": [
+    "mirror_shard_1",
+    "mirror_shard_2",
+    "mirror_shard_3"
+  ],
+  "reward_flags": [
+    "mira_mirror_repaired"
+  ],
+  "on_complete_dialogue": "mira_mirror_done"
+}

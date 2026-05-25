@@ -3,14 +3,27 @@
   "lines": [
     {
       "speaker": "Theo",
-      "text": "Tôi đang ôn bài. Tay tôi run."
+      "text": "Anh đừng nhìn vào sổ của em... toàn điểm thấp."
+    },
+    {
+      "speaker": "Bạn",
+      "text": "Anh không quan tâm điểm. Anh chỉ muốn biết em ngủ có ngon không."
     },
     {
       "speaker": "Theo",
-      "text": "Cậu đến tìm tôi sau nhé...",
+      "text": "Lớp học. Lớp học không ngừng. Em không bao giờ ra khỏi đó được."
+    },
+    {
+      "speaker": "Bạn",
+      "text": "Anh có thể giúp em ra. Nếu em đồng ý."
+    },
+    {
+      "speaker": "Theo",
+      "text": "...Vâng. Có ai đó cùng... em đỡ sợ hơn.",
       "side_effect": {
         "set_flags": [
-          "theo_intro_done"
+          "theo_intro_done",
+          "theo_dream_offered"
         ]
       }
     }

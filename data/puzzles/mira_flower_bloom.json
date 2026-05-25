@@ -1,0 +1,19 @@
+{
+  "id": "mira_flower_bloom",
+  "type": "collect_and_place",
+  "scene": "Dream_Mira_MirrorRoom",
+  "required_items": [
+    "light",
+    "memory_essence",
+    "water"
+  ],
+  "required_flags": [
+    "mira_mirror_repaired",
+    "mira_memories_complete"
+  ],
+  "order_matters": false,
+  "reward_flags": [
+    "mira_flower_bloomed"
+  ],
+  "on_complete_dialogue": "mira_flower_done"
+}

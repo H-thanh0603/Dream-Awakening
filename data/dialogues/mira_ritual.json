@@ -1,0 +1,42 @@
+{
+  "id": "mira_ritual",
+  "lines": [
+    {
+      "speaker": "Bạn",
+      "text": "Em đến đây nào, Mira."
+    },
+    {
+      "speaker": "Mira",
+      "text": "Anh muốn em làm gì?"
+    },
+    {
+      "speaker": "Bạn",
+      "text": "Hãy nhìn vào gương thật. Đặt mặt nạ xuống. Một lần thôi."
+    },
+    {
+      "speaker": "Mira",
+      "text": "..."
+    },
+    {
+      "speaker": "Mira",
+      "text": "Em cứ nghĩ... mọi người chỉ nhìn thấy khuôn mặt này."
+    },
+    {
+      "speaker": "Mira",
+      "text": "Nhưng những điều kia... cũng là em sao?"
+    },
+    {
+      "speaker": "???",
+      "text": "Mira chậm rãi cởi mặt nạ. Tay run run."
+    },
+    {
+      "speaker": "Mira",
+      "text": "Em vẫn còn sợ. Nhưng em không muốn trốn nữa.",
+      "side_effect": {
+        "set_flags": [
+          "mira_realized"
+        ]
+      }
+    }
+  ]
+}

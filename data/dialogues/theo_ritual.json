@@ -1,0 +1,30 @@
+{
+  "id": "theo_ritual",
+  "lines": [
+    {
+      "speaker": "Bạn",
+      "text": "Gấp lại đi, Theo. Từng tờ một."
+    },
+    {
+      "speaker": "Theo",
+      "text": "Nếu mình sai... có nghĩa là mình vẫn đang học?"
+    },
+    {
+      "speaker": "Theo",
+      "text": "Vậy bài kiểm tra không phải là cái kết."
+    },
+    {
+      "speaker": "Theo",
+      "text": "Em có thể làm lại, đúng không?"
+    },
+    {
+      "speaker": "???",
+      "text": "Theo thả từng máy bay giấy ra cửa sổ. Chúng bay xa.",
+      "side_effect": {
+        "set_flags": [
+          "theo_realized"
+        ]
+      }
+    }
+  ]
+}

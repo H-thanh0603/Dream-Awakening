@@ -1,16 +1,15 @@
 {
   "id": "rell",
   "display_name": "Rell",
-  "real_world_state": "normal",
   "issue_core": "regret",
   "wrong_belief": "Nếu không quay lại quá khứ được, mọi thứ đã kết thúc.",
   "dream_scene": "res://scenes/dreams/Dream_Rell_ClockTower.tscn",
   "intro_dialogue": "rell_intro",
   "after_wake_dialogue": "rell_after_wake",
   "required_memories": [
-    "rell_argument",
-    "rell_son_left",
-    "rell_unsent_letter"
+    "rell_gears",
+    "rell_letter",
+    "rell_lamp"
   ],
   "ritual_id": "rell_clock_forward",
   "unlock_flag": "theo_realized",

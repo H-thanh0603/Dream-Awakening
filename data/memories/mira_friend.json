@@ -1,9 +1,7 @@
 {
   "id": "mira_friend",
-  "owner_npc": "mira",
-  "title_vi": "Lắng nghe bạn khóc",
-  "description_vi": "Mira ngồi cạnh bạn cả buổi tối khi bạn buồn, không nói gì.",
-  "icon": "",
-  "found_in_dream": "Dream_Mira_MirrorRoom",
-  "is_counter_evidence": true
+  "title_vi": "Mira ngồi nghe bạn khóc",
+  "description_vi": "Cô không nói gì, chỉ ngồi đó.",
+  "color_tint": "170,200,200",
+  "found_at": "Phòng trung tâm"
 }

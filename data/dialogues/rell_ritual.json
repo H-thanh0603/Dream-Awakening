@@ -1,0 +1,30 @@
+{
+  "id": "rell_ritual",
+  "lines": [
+    {
+      "speaker": "Bạn",
+      "text": "Lắp kim đồng hồ đi, bác Rell. Cho nó chạy tiếp."
+    },
+    {
+      "speaker": "Rell",
+      "text": "Tôi cứ nghĩ nếu quay lại ngày đó, mọi thứ sẽ khác."
+    },
+    {
+      "speaker": "Rell",
+      "text": "Nhưng thời gian không chờ tôi."
+    },
+    {
+      "speaker": "Rell",
+      "text": "Có lẽ... điều tôi có thể làm là viết tiếp phần còn lại."
+    },
+    {
+      "speaker": "???",
+      "text": "Rell thắp đèn ở cửa phía trước. Bước qua.",
+      "side_effect": {
+        "set_flags": [
+          "rell_realized"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,374 @@
+[gd_scene load_steps=10 format=3 uid="uid://b0lina0000000001"]
+
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="1_player"]
+[ext_resource type="Script" path="res://scripts/interaction/Interactable.gd" id="2_interactable"]
+[ext_resource type="Script" path="res://scripts/interaction/PickupItem.gd" id="3_pickup"]
+[ext_resource type="Script" path="res://scripts/interaction/PlaceSlot.gd" id="4_slot"]
+[ext_resource type="Script" path="res://scripts/dreams/DreamLina.gd" id="5_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_lina/music_box_playing.png" id="6_mp"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_lina/music_box_silent.png" id="7_ms"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_lina/frame_facedown.png" id="8_ff"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_lina/frame_smile.png" id="9_fs"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_lina/frame_alone.png" id="10_fa"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_lina/frame_phone.png" id="11_fp"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_lina/frame_knock.png" id="12_fk"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_lina/curtain_closed.png" id="13_cc"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_lina/curtain_open.png" id="14_co"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_lina/door_inner.png" id="15_di"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_lina/door_inner_open.png" id="16_dio"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_lina/key_warm.png" id="17_key"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_lina/empty_chair.png" id="18_chair"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/lina.png" id="19_lina"]
+
+[sub_resource type="RectangleShape2D" id="Shape_obj"]
+size = Vector2(20, 20)
+[sub_resource type="RectangleShape2D" id="Shape_big"]
+size = Vector2(36, 44)
+[sub_resource type="RectangleShape2D" id="Shape_wall"]
+size = Vector2(480, 16)
+[sub_resource type="RectangleShape2D" id="Shape_wallv"]
+size = Vector2(16, 270)
+
+[node name="DreamLina" type="Node2D"]
+script = ExtResource("5_script")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 480.0
+offset_bottom = 270.0
+color = Color(0.85, 0.85, 0.88, 1)
+
+[node name="Walls" type="Node2D" parent="."]
+[node name="WallTop" type="StaticBody2D" parent="Walls"]
+position = Vector2(240, 8)
+[node name="Shape" type="CollisionShape2D" parent="Walls/WallTop"]
+shape = SubResource("Shape_wall")
+[node name="WallBottom" type="StaticBody2D" parent="Walls"]
+position = Vector2(240, 262)
+[node name="Shape" type="CollisionShape2D" parent="Walls/WallBottom"]
+shape = SubResource("Shape_wall")
+[node name="WallLeft" type="StaticBody2D" parent="Walls"]
+position = Vector2(8, 135)
+[node name="Shape" type="CollisionShape2D" parent="Walls/WallLeft"]
+shape = SubResource("Shape_wallv")
+[node name="WallRight" type="StaticBody2D" parent="Walls"]
+position = Vector2(472, 135)
+[node name="Shape" type="CollisionShape2D" parent="Walls/WallRight"]
+shape = SubResource("Shape_wallv")
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+position = Vector2(60, 200)
+[node name="Camera2D" type="Camera2D" parent="Player"]
+limit_left = 0
+limit_top = 0
+limit_right = 480
+limit_bottom = 270
+
+[node name="EmptyChair" type="Sprite2D" parent="."]
+texture = ExtResource("18_chair")
+position = Vector2(180, 220)
+scale = Vector2(1.5, 1.5)
+modulate = Color(1, 1, 1, 0.8)
+
+[node name="LinaInDream" type="Area2D" parent="."]
+position = Vector2(310, 210)
+[node name="Sprite" type="Sprite2D" parent="LinaInDream"]
+texture = ExtResource("19_lina")
+offset = Vector2(0, -8)
+modulate = Color(0.95, 0.95, 1, 0.8)
+[node name="Label" type="Label" parent="LinaInDream"]
+offset_left = -20.0
+offset_top = -32.0
+offset_right = 20.0
+offset_bottom = -16.0
+text = "Lina"
+horizontal_alignment = 1
+modulate = Color(0.6, 0.7, 0.8, 1)
+
+[node name="MusicBox" type="Area2D" parent="."]
+position = Vector2(110, 130)
+script = ExtResource("2_interactable")
+prompt_text = "E - Tắt hộp nhạc"
+
+[node name="Playing" type="Sprite2D" parent="MusicBox"]
+texture = ExtResource("6_mp")
+scale = Vector2(2, 2)
+
+[node name="Silent" type="Sprite2D" parent="MusicBox"]
+texture = ExtResource("7_ms")
+scale = Vector2(2, 2)
+visible = false
+
+[node name="Shape" type="CollisionShape2D" parent="MusicBox"]
+shape = SubResource("Shape_obj")
+
+[node name="Label" type="Label" parent="MusicBox"]
+offset_left = -40.0
+offset_top = -28.0
+offset_right = 40.0
+offset_bottom = -14.0
+text = "Hộp nhạc"
+horizontal_alignment = 1
+modulate = Color(0.7, 0.5, 0.6, 0.9)
+
+[node name="FramesArea" type="Node2D" parent="."]
+
+[node name="Frames" type="Node2D" parent="FramesArea"]
+
+[node name="FrameSmile" type="Area2D" parent="FramesArea/Frames"]
+position = Vector2(60, 70)
+script = ExtResource("3_pickup")
+prompt_text = "E - Lật khung 1"
+item_id = "frame_smile"
+[node name="Sprite" type="Sprite2D" parent="FramesArea/Frames/FrameSmile"]
+texture = ExtResource("8_ff")
+scale = Vector2(1.5, 1.5)
+[node name="Shape" type="CollisionShape2D" parent="FramesArea/Frames/FrameSmile"]
+shape = SubResource("Shape_obj")
+[node name="Label" type="Label" parent="FramesArea/Frames/FrameSmile"]
+offset_left = -32.0
+offset_top = 14.0
+offset_right = 32.0
+offset_bottom = 28.0
+text = "Khung 1"
+horizontal_alignment = 1
+modulate = Color(0.6, 0.5, 0.4, 0.8)
+
+[node name="FrameAlone" type="Area2D" parent="FramesArea/Frames"]
+position = Vector2(110, 70)
+script = ExtResource("3_pickup")
+prompt_text = "E - Lật khung 2"
+item_id = "frame_alone"
+[node name="Sprite" type="Sprite2D" parent="FramesArea/Frames/FrameAlone"]
+texture = ExtResource("8_ff")
+scale = Vector2(1.5, 1.5)
+[node name="Shape" type="CollisionShape2D" parent="FramesArea/Frames/FrameAlone"]
+shape = SubResource("Shape_obj")
+[node name="Label" type="Label" parent="FramesArea/Frames/FrameAlone"]
+offset_left = -32.0
+offset_top = 14.0
+offset_right = 32.0
+offset_bottom = 28.0
+text = "Khung 2"
+horizontal_alignment = 1
+modulate = Color(0.6, 0.5, 0.4, 0.8)
+
+[node name="FramePhone" type="Area2D" parent="FramesArea/Frames"]
+position = Vector2(160, 70)
+script = ExtResource("3_pickup")
+prompt_text = "E - Lật khung 3"
+item_id = "frame_phone"
+[node name="Sprite" type="Sprite2D" parent="FramesArea/Frames/FramePhone"]
+texture = ExtResource("8_ff")
+scale = Vector2(1.5, 1.5)
+[node name="Shape" type="CollisionShape2D" parent="FramesArea/Frames/FramePhone"]
+shape = SubResource("Shape_obj")
+[node name="Label" type="Label" parent="FramesArea/Frames/FramePhone"]
+offset_left = -32.0
+offset_top = 14.0
+offset_right = 32.0
+offset_bottom = 28.0
+text = "Khung 3"
+horizontal_alignment = 1
+modulate = Color(0.6, 0.5, 0.4, 0.8)
+
+[node name="FrameKnock" type="Area2D" parent="FramesArea/Frames"]
+position = Vector2(210, 70)
+script = ExtResource("3_pickup")
+prompt_text = "E - Lật khung 4"
+item_id = "frame_knock"
+[node name="Sprite" type="Sprite2D" parent="FramesArea/Frames/FrameKnock"]
+texture = ExtResource("8_ff")
+scale = Vector2(1.5, 1.5)
+[node name="Shape" type="CollisionShape2D" parent="FramesArea/Frames/FrameKnock"]
+shape = SubResource("Shape_obj")
+[node name="Label" type="Label" parent="FramesArea/Frames/FrameKnock"]
+offset_left = -32.0
+offset_top = 14.0
+offset_right = 32.0
+offset_bottom = 28.0
+text = "Khung 4"
+horizontal_alignment = 1
+modulate = Color(0.6, 0.5, 0.4, 0.8)
+
+[node name="Slots" type="Node2D" parent="FramesArea"]
+
+[node name="Slot1" type="Area2D" parent="FramesArea/Slots"]
+position = Vector2(280, 70)
+script = ExtResource("4_slot")
+prompt_text = "E - Vị trí 1: cười"
+slot_id = "wall_slot_1"
+accepts_items = ["frame_smile"]
+[node name="Visual" type="ColorRect" parent="FramesArea/Slots/Slot1"]
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+color = Color(0.7, 0.7, 0.75, 1)
+[node name="Shape" type="CollisionShape2D" parent="FramesArea/Slots/Slot1"]
+shape = SubResource("Shape_obj")
+[node name="Label" type="Label" parent="FramesArea/Slots/Slot1"]
+offset_left = -28.0
+offset_top = -22.0
+offset_right = 28.0
+offset_bottom = -8.0
+text = "Cười"
+horizontal_alignment = 1
+modulate = Color(0.6, 0.5, 0.5, 0.9)
+
+[node name="Slot2" type="Area2D" parent="FramesArea/Slots"]
+position = Vector2(330, 70)
+script = ExtResource("4_slot")
+prompt_text = "E - Vị trí 2: một mình"
+slot_id = "wall_slot_2"
+accepts_items = ["frame_alone"]
+[node name="Visual" type="ColorRect" parent="FramesArea/Slots/Slot2"]
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+color = Color(0.7, 0.7, 0.75, 1)
+[node name="Shape" type="CollisionShape2D" parent="FramesArea/Slots/Slot2"]
+shape = SubResource("Shape_obj")
+[node name="Label" type="Label" parent="FramesArea/Slots/Slot2"]
+offset_left = -32.0
+offset_top = -22.0
+offset_right = 32.0
+offset_bottom = -8.0
+text = "Một mình"
+horizontal_alignment = 1
+modulate = Color(0.6, 0.5, 0.5, 0.9)
+
+[node name="Slot3" type="Area2D" parent="FramesArea/Slots"]
+position = Vector2(380, 70)
+script = ExtResource("4_slot")
+prompt_text = "E - Vị trí 3: muốn gọi"
+slot_id = "wall_slot_3"
+accepts_items = ["frame_phone"]
+[node name="Visual" type="ColorRect" parent="FramesArea/Slots/Slot3"]
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+color = Color(0.7, 0.7, 0.75, 1)
+[node name="Shape" type="CollisionShape2D" parent="FramesArea/Slots/Slot3"]
+shape = SubResource("Shape_obj")
+[node name="Label" type="Label" parent="FramesArea/Slots/Slot3"]
+offset_left = -32.0
+offset_top = -22.0
+offset_right = 32.0
+offset_bottom = -8.0
+text = "Muốn gọi"
+horizontal_alignment = 1
+modulate = Color(0.6, 0.5, 0.5, 0.9)
+
+[node name="Slot4" type="Area2D" parent="FramesArea/Slots"]
+position = Vector2(430, 70)
+script = ExtResource("4_slot")
+prompt_text = "E - Vị trí 4: nghe gõ"
+slot_id = "wall_slot_4"
+accepts_items = ["frame_knock"]
+[node name="Visual" type="ColorRect" parent="FramesArea/Slots/Slot4"]
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+color = Color(0.7, 0.7, 0.75, 1)
+[node name="Shape" type="CollisionShape2D" parent="FramesArea/Slots/Slot4"]
+shape = SubResource("Shape_obj")
+[node name="Label" type="Label" parent="FramesArea/Slots/Slot4"]
+offset_left = -36.0
+offset_top = -22.0
+offset_right = 36.0
+offset_bottom = -8.0
+text = "Nghe gõ"
+horizontal_alignment = 1
+modulate = Color(0.6, 0.5, 0.5, 0.9)
+
+[node name="WallArea" type="Node2D" parent="."]
+
+[node name="CurtainClosed" type="Sprite2D" parent="WallArea"]
+texture = ExtResource("13_cc")
+position = Vector2(380, 160)
+scale = Vector2(1.5, 1.5)
+
+[node name="CurtainOpen" type="Sprite2D" parent="WallArea"]
+texture = ExtResource("14_co")
+position = Vector2(380, 160)
+scale = Vector2(1.5, 1.5)
+visible = false
+
+[node name="DoorInner" type="Sprite2D" parent="WallArea"]
+texture = ExtResource("15_di")
+position = Vector2(380, 160)
+scale = Vector2(1.2, 1.2)
+visible = false
+
+[node name="DoorOpen" type="Sprite2D" parent="WallArea"]
+texture = ExtResource("16_dio")
+position = Vector2(380, 160)
+scale = Vector2(1.2, 1.2)
+visible = false
+
+[node name="CurtainPull" type="Area2D" parent="."]
+position = Vector2(380, 160)
+script = ExtResource("2_interactable")
+prompt_text = "E - Kéo rèm"
+enabled = false
+[node name="Shape" type="CollisionShape2D" parent="CurtainPull"]
+shape = SubResource("Shape_big")
+[node name="Label" type="Label" parent="CurtainPull"]
+offset_left = -28.0
+offset_top = 26.0
+offset_right = 28.0
+offset_bottom = 40.0
+text = "Rèm cửa"
+horizontal_alignment = 1
+modulate = Color(0.6, 0.4, 0.45, 0.9)
+
+[node name="KeyPickup" type="Area2D" parent="."]
+position = Vector2(240, 200)
+script = ExtResource("3_pickup")
+prompt_text = "E - Chìa khoá"
+item_id = "lina_key"
+enabled = false
+[node name="Sprite" type="Sprite2D" parent="KeyPickup"]
+texture = ExtResource("17_key")
+scale = Vector2(1.5, 1.5)
+[node name="Shape" type="CollisionShape2D" parent="KeyPickup"]
+shape = SubResource("Shape_obj")
+[node name="Label" type="Label" parent="KeyPickup"]
+offset_left = -36.0
+offset_top = -22.0
+offset_right = 36.0
+offset_bottom = -8.0
+text = "Chìa khoá"
+horizontal_alignment = 1
+modulate = Color(0.85, 0.75, 0.5, 0.9)
+
+[node name="RitualDoor" type="Area2D" parent="."]
+position = Vector2(380, 160)
+script = ExtResource("2_interactable")
+prompt_text = "E - Trao chìa cho Lina"
+enabled = true
+[node name="Shape" type="CollisionShape2D" parent="RitualDoor"]
+shape = SubResource("Shape_big")
+
+[node name="HintHUD" type="CanvasLayer" parent="."]
+layer = 8
+[node name="StepBox" type="Panel" parent="HintHUD"]
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -240.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = 32.0
+[node name="StepLabel" type="Label" parent="HintHUD/StepBox"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 4.0
+offset_right = -6.0
+offset_bottom = -4.0
+text = "B1: Tắt hộp nhạc"
+horizontal_alignment = 1
+modulate = Color(0.6, 0.5, 0.5, 1)

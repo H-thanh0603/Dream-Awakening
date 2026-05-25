@@ -1,0 +1,30 @@
+{
+  "id": "lina_ritual",
+  "lines": [
+    {
+      "speaker": "Bạn",
+      "text": "Anh đưa em chìa khoá. Em phải tự mở cửa từ trong này."
+    },
+    {
+      "speaker": "Lina",
+      "text": "..."
+    },
+    {
+      "speaker": "Lina",
+      "text": "Tiếng gõ cửa vẫn ở đó."
+    },
+    {
+      "speaker": "Lina",
+      "text": "Có lẽ mình có thể mở cửa một chút."
+    },
+    {
+      "speaker": "???",
+      "text": "Lina cầm chìa, tay hơi run. Tra vào, xoay nhẹ. Cửa mở.",
+      "side_effect": {
+        "set_flags": [
+          "lina_realized"
+        ]
+      }
+    }
+  ]
+}

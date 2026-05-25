@@ -3,10 +3,27 @@
   "lines": [
     {
       "speaker": "Lina",
-      "text": "Mình ổn mà. Hôm nay đẹp trời quá nhỉ?",
+      "text": "Anh hỏi mình ổn không? Mình ổn. Lúc nào mình chẳng ổn."
+    },
+    {
+      "speaker": "Bạn",
+      "text": "Em có chắc không?"
+    },
+    {
+      "speaker": "Lina",
+      "text": "..."
+    },
+    {
+      "speaker": "Lina",
+      "text": "Trong giấc mơ của em không có cửa. Có tiếng gõ. Nhưng không có cửa."
+    },
+    {
+      "speaker": "Lina",
+      "text": "Anh muốn đi cùng em vào đó à? Em cũng không biết phải làm sao.",
       "side_effect": {
         "set_flags": [
-          "lina_intro_done"
+          "lina_intro_done",
+          "lina_dream_offered"
         ]
       }
     }

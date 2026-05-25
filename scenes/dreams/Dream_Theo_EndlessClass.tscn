@@ -1,0 +1,359 @@
+[gd_scene load_steps=10 format=3 uid="uid://b0theo000000001"]
+
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="1_player"]
+[ext_resource type="Script" path="res://scripts/interaction/Interactable.gd" id="2_interactable"]
+[ext_resource type="Script" path="res://scripts/interaction/PickupItem.gd" id="3_pickup"]
+[ext_resource type="Script" path="res://scripts/interaction/PlaceSlot.gd" id="4_slot"]
+[ext_resource type="Script" path="res://scripts/dreams/DreamTheo.gd" id="5_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_theo/test_paper_red.png" id="6_paper"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_theo/blackboard_formula.png" id="7_board"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_theo/eraser.png" id="8_eraser"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_theo/window_locked.png" id="9_winl"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_theo/window_open.png" id="10_wino"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_theo/padlock.png" id="11_lock"]
+[ext_resource type="Texture2D" path="res://assets/sprites/items/paper_plane.png" id="12_plane"]
+[ext_resource type="Texture2D" path="res://assets/sprites/items/door_closed.png" id="13_door"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_theo/countdown_clock.png" id="14_clock"]
+
+[sub_resource type="RectangleShape2D" id="Shape_obj"]
+size = Vector2(20, 20)
+[sub_resource type="RectangleShape2D" id="Shape_wall"]
+size = Vector2(480, 16)
+[sub_resource type="RectangleShape2D" id="Shape_wallv"]
+size = Vector2(16, 270)
+
+[node name="DreamTheo" type="Node2D"]
+script = ExtResource("5_script")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 480.0
+offset_bottom = 270.0
+color = Color(0.08, 0.12, 0.22, 1)
+
+[node name="Walls" type="Node2D" parent="."]
+[node name="WallTop" type="StaticBody2D" parent="Walls"]
+position = Vector2(240, 8)
+[node name="Shape" type="CollisionShape2D" parent="Walls/WallTop"]
+shape = SubResource("Shape_wall")
+[node name="WallBottom" type="StaticBody2D" parent="Walls"]
+position = Vector2(240, 262)
+[node name="Shape" type="CollisionShape2D" parent="Walls/WallBottom"]
+shape = SubResource("Shape_wall")
+[node name="WallLeft" type="StaticBody2D" parent="Walls"]
+position = Vector2(8, 135)
+[node name="Shape" type="CollisionShape2D" parent="Walls/WallLeft"]
+shape = SubResource("Shape_wallv")
+[node name="WallRight" type="StaticBody2D" parent="Walls"]
+position = Vector2(472, 135)
+[node name="Shape" type="CollisionShape2D" parent="Walls/WallRight"]
+shape = SubResource("Shape_wallv")
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+position = Vector2(60, 200)
+[node name="Camera2D" type="Camera2D" parent="Player"]
+limit_left = 0
+limit_top = 0
+limit_right = 480
+limit_bottom = 270
+
+[node name="Decorations" type="Node2D" parent="."]
+[node name="Clock" type="Sprite2D" parent="Decorations"]
+texture = ExtResource("14_clock")
+position = Vector2(240, 30)
+scale = Vector2(2, 2)
+
+[node name="Blackboard" type="Area2D" parent="."]
+position = Vector2(120, 80)
+script = ExtResource("4_slot")
+prompt_text = "E - Đặt cục tẩy"
+slot_id = "blackboard"
+accepts_items = ["eraser"]
+[node name="Sprite" type="Sprite2D" parent="Blackboard"]
+texture = ExtResource("7_board")
+scale = Vector2(2, 2)
+[node name="Shape" type="CollisionShape2D" parent="Blackboard"]
+shape = SubResource("Shape_obj")
+[node name="Label" type="Label" parent="Blackboard"]
+offset_left = -40.0
+offset_top = -28.0
+offset_right = 40.0
+offset_bottom = -14.0
+text = "Bảng đen"
+horizontal_alignment = 1
+modulate = Color(0.85, 0.95, 0.85, 0.9)
+[node name="Prompt" type="Label" parent="Blackboard"]
+offset_left = -56.0
+offset_top = 18.0
+offset_right = 56.0
+offset_bottom = 32.0
+text = "E - Xoá dấu ="
+horizontal_alignment = 1
+modulate = Color(1, 0.9, 0.4, 1)
+visible = false
+
+[node name="EraserPickup" type="Area2D" parent="."]
+position = Vector2(60, 80)
+script = ExtResource("3_pickup")
+prompt_text = "E - Cục tẩy"
+item_id = "eraser"
+[node name="Sprite" type="Sprite2D" parent="EraserPickup"]
+texture = ExtResource("8_eraser")
+scale = Vector2(1.5, 1.5)
+[node name="Shape" type="CollisionShape2D" parent="EraserPickup"]
+shape = SubResource("Shape_obj")
+[node name="Label" type="Label" parent="EraserPickup"]
+offset_left = -32.0
+offset_top = -22.0
+offset_right = 32.0
+offset_bottom = -8.0
+text = "Cục tẩy"
+horizontal_alignment = 1
+modulate = Color(1, 0.85, 0.9, 1)
+[node name="Prompt" type="Label" parent="EraserPickup"]
+offset_left = -36.0
+offset_top = 14.0
+offset_right = 36.0
+offset_bottom = 28.0
+text = "E - Nhặt"
+horizontal_alignment = 1
+modulate = Color(1, 0.9, 0.4, 1)
+visible = false
+
+[node name="PapersArea" type="Node2D" parent="."]
+[node name="Papers" type="Node2D" parent="PapersArea"]
+
+[node name="Paper1" type="Area2D" parent="PapersArea/Papers"]
+position = Vector2(160, 160)
+script = ExtResource("3_pickup")
+prompt_text = "E - Bài kiểm tra"
+item_id = "fake_paper_1"
+enabled = false
+[node name="Sprite" type="Sprite2D" parent="PapersArea/Papers/Paper1"]
+texture = ExtResource("6_paper")
+scale = Vector2(1.5, 1.5)
+[node name="Shape" type="CollisionShape2D" parent="PapersArea/Papers/Paper1"]
+shape = SubResource("Shape_obj")
+
+[node name="Paper2" type="Area2D" parent="PapersArea/Papers"]
+position = Vector2(220, 160)
+script = ExtResource("3_pickup")
+prompt_text = "E - Bài kiểm tra"
+item_id = "theo_real_paper"
+enabled = false
+[node name="Sprite" type="Sprite2D" parent="PapersArea/Papers/Paper2"]
+texture = ExtResource("6_paper")
+scale = Vector2(1.5, 1.5)
+modulate = Color(1, 1, 0.7, 1)
+[node name="Shape" type="CollisionShape2D" parent="PapersArea/Papers/Paper2"]
+shape = SubResource("Shape_obj")
+[node name="HintLabel" type="Label" parent="PapersArea/Papers/Paper2"]
+offset_left = -36.0
+offset_top = -22.0
+offset_right = 36.0
+offset_bottom = -8.0
+text = "có vẽ mèo"
+horizontal_alignment = 1
+modulate = Color(1, 0.95, 0.5, 0.7)
+
+[node name="Paper3" type="Area2D" parent="PapersArea/Papers"]
+position = Vector2(280, 160)
+script = ExtResource("3_pickup")
+prompt_text = "E - Bài kiểm tra"
+item_id = "fake_paper_2"
+enabled = false
+[node name="Sprite" type="Sprite2D" parent="PapersArea/Papers/Paper3"]
+texture = ExtResource("6_paper")
+scale = Vector2(1.5, 1.5)
+[node name="Shape" type="CollisionShape2D" parent="PapersArea/Papers/Paper3"]
+shape = SubResource("Shape_obj")
+
+[node name="WindowArea" type="Node2D" parent="."]
+
+[node name="WindowLocked" type="Sprite2D" parent="WindowArea"]
+texture = ExtResource("9_winl")
+position = Vector2(400, 90)
+scale = Vector2(1.5, 1.5)
+
+[node name="WindowOpen" type="Sprite2D" parent="WindowArea"]
+texture = ExtResource("10_wino")
+position = Vector2(400, 90)
+scale = Vector2(1.5, 1.5)
+
+[node name="Locks" type="Node2D" parent="WindowArea"]
+
+[node name="Lock1" type="Area2D" parent="WindowArea/Locks"]
+position = Vector2(370, 140)
+script = ExtResource("4_slot")
+prompt_text = "E - Mở khoá Can đảm"
+slot_id = "lock_courage"
+accepts_items = ["mem_courage"]
+[node name="Sprite" type="Sprite2D" parent="WindowArea/Locks/Lock1"]
+texture = ExtResource("11_lock")
+[node name="Shape" type="CollisionShape2D" parent="WindowArea/Locks/Lock1"]
+shape = SubResource("Shape_obj")
+[node name="Label" type="Label" parent="WindowArea/Locks/Lock1"]
+offset_left = -36.0
+offset_top = 12.0
+offset_right = 36.0
+offset_bottom = 26.0
+text = "Can đảm"
+horizontal_alignment = 1
+modulate = Color(1, 0.85, 0.85, 0.9)
+
+[node name="Lock2" type="Area2D" parent="WindowArea/Locks"]
+position = Vector2(400, 140)
+script = ExtResource("4_slot")
+prompt_text = "E - Mở khoá Cố gắng"
+slot_id = "lock_effort"
+accepts_items = ["mem_effort"]
+[node name="Sprite" type="Sprite2D" parent="WindowArea/Locks/Lock2"]
+texture = ExtResource("11_lock")
+[node name="Shape" type="CollisionShape2D" parent="WindowArea/Locks/Lock2"]
+shape = SubResource("Shape_obj")
+[node name="Label" type="Label" parent="WindowArea/Locks/Lock2"]
+offset_left = -36.0
+offset_top = 12.0
+offset_right = 36.0
+offset_bottom = 26.0
+text = "Cố gắng"
+horizontal_alignment = 1
+modulate = Color(1, 0.95, 0.85, 0.9)
+
+[node name="Lock3" type="Area2D" parent="WindowArea/Locks"]
+position = Vector2(430, 140)
+script = ExtResource("4_slot")
+prompt_text = "E - Mở khoá Chấp nhận"
+slot_id = "lock_accept"
+accepts_items = ["mem_accept"]
+[node name="Sprite" type="Sprite2D" parent="WindowArea/Locks/Lock3"]
+texture = ExtResource("11_lock")
+[node name="Shape" type="CollisionShape2D" parent="WindowArea/Locks/Lock3"]
+shape = SubResource("Shape_obj")
+[node name="Label" type="Label" parent="WindowArea/Locks/Lock3"]
+offset_left = -36.0
+offset_top = 12.0
+offset_right = 36.0
+offset_bottom = 26.0
+text = "Chấp nhận"
+horizontal_alignment = 1
+modulate = Color(0.85, 0.95, 1, 0.9)
+
+[node name="MemCourage" type="Area2D" parent="WindowArea"]
+position = Vector2(370, 200)
+script = ExtResource("3_pickup")
+prompt_text = "E - Ký ức can đảm"
+item_id = "mem_courage"
+enabled = false
+[node name="Visual" type="ColorRect" parent="WindowArea/MemCourage"]
+offset_left = -6.0
+offset_top = -6.0
+offset_right = 6.0
+offset_bottom = 6.0
+color = Color(1, 0.6, 0.6, 1)
+[node name="Shape" type="CollisionShape2D" parent="WindowArea/MemCourage"]
+shape = SubResource("Shape_obj")
+
+[node name="MemEffort" type="Area2D" parent="WindowArea"]
+position = Vector2(400, 200)
+script = ExtResource("3_pickup")
+prompt_text = "E - Ký ức cố gắng"
+item_id = "mem_effort"
+enabled = false
+[node name="Visual" type="ColorRect" parent="WindowArea/MemEffort"]
+offset_left = -6.0
+offset_top = -6.0
+offset_right = 6.0
+offset_bottom = 6.0
+color = Color(1, 0.85, 0.5, 1)
+[node name="Shape" type="CollisionShape2D" parent="WindowArea/MemEffort"]
+shape = SubResource("Shape_obj")
+
+[node name="MemAccept" type="Area2D" parent="WindowArea"]
+position = Vector2(430, 200)
+script = ExtResource("3_pickup")
+prompt_text = "E - Ký ức chấp nhận"
+item_id = "mem_accept"
+enabled = false
+[node name="Visual" type="ColorRect" parent="WindowArea/MemAccept"]
+offset_left = -6.0
+offset_top = -6.0
+offset_right = 6.0
+offset_bottom = 6.0
+color = Color(0.6, 0.85, 1, 1)
+[node name="Shape" type="CollisionShape2D" parent="WindowArea/MemAccept"]
+shape = SubResource("Shape_obj")
+
+[node name="RitualSpot" type="Area2D" parent="WindowArea"]
+position = Vector2(400, 50)
+script = ExtResource("4_slot")
+prompt_text = "E - Thả máy bay giấy"
+slot_id = "window_throw"
+accepts_items = ["paper_plane_stack"]
+[node name="Visual" type="ColorRect" parent="WindowArea/RitualSpot"]
+offset_left = -8.0
+offset_top = -4.0
+offset_right = 8.0
+offset_bottom = 4.0
+color = Color(1, 0.95, 0.7, 0.5)
+[node name="Shape" type="CollisionShape2D" parent="WindowArea/RitualSpot"]
+shape = SubResource("Shape_obj")
+
+[node name="RitualPlanePickup" type="Area2D" parent="."]
+position = Vector2(240, 200)
+script = ExtResource("3_pickup")
+prompt_text = "E - Gấp máy bay giấy"
+item_id = "paper_plane_stack"
+enabled = false
+[node name="Sprite" type="Sprite2D" parent="RitualPlanePickup"]
+texture = ExtResource("12_plane")
+scale = Vector2(1.5, 1.5)
+[node name="Shape" type="CollisionShape2D" parent="RitualPlanePickup"]
+shape = SubResource("Shape_obj")
+[node name="Label" type="Label" parent="RitualPlanePickup"]
+offset_left = -48.0
+offset_top = -22.0
+offset_right = 48.0
+offset_bottom = -8.0
+text = "Máy bay giấy"
+horizontal_alignment = 1
+modulate = Color(1, 0.95, 0.7, 0.9)
+
+[node name="RitualDoor" type="Area2D" parent="."]
+position = Vector2(440, 230)
+script = ExtResource("2_interactable")
+prompt_text = "E - Bước qua cửa tỉnh mộng"
+enabled = false
+[node name="Sprite" type="Sprite2D" parent="RitualDoor"]
+texture = ExtResource("13_door")
+scale = Vector2(1.5, 1.5)
+modulate = Color(1, 0.95, 0.6, 1)
+[node name="Shape" type="CollisionShape2D" parent="RitualDoor"]
+shape = SubResource("Shape_obj")
+[node name="Label" type="Label" parent="RitualDoor"]
+offset_left = -40.0
+offset_top = -36.0
+offset_right = 40.0
+offset_bottom = -22.0
+text = "Cửa tỉnh mộng"
+horizontal_alignment = 1
+modulate = Color(1, 0.95, 0.6, 1)
+
+[node name="HintHUD" type="CanvasLayer" parent="."]
+layer = 8
+[node name="StepBox" type="Panel" parent="HintHUD"]
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -240.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = 32.0
+[node name="StepLabel" type="Label" parent="HintHUD/StepBox"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 4.0
+offset_right = -6.0
+offset_bottom = -4.0
+text = "B1: Tìm cục tẩy"
+horizontal_alignment = 1
+modulate = Color(1, 0.92, 0.6, 1)

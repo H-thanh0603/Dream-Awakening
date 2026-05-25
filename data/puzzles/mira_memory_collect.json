@@ -1,0 +1,16 @@
+{
+  "id": "mira_memory_collect",
+  "type": "collect_and_place",
+  "scene": "Dream_Mira_MirrorRoom",
+  "required_items": [
+    "mira_cat",
+    "mira_flower",
+    "mira_child",
+    "mira_friend"
+  ],
+  "order_matters": false,
+  "reward_flags": [
+    "mira_memories_complete"
+  ],
+  "on_complete_dialogue": "mira_memories_done"
+}

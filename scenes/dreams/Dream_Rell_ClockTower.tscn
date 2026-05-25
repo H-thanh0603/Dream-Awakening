@@ -1,0 +1,304 @@
+[gd_scene load_steps=12 format=3 uid="uid://b0rell0000000001"]
+
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="1_player"]
+[ext_resource type="Script" path="res://scripts/interaction/Interactable.gd" id="2_interactable"]
+[ext_resource type="Script" path="res://scripts/interaction/PickupItem.gd" id="3_pickup"]
+[ext_resource type="Script" path="res://scripts/interaction/PlaceSlot.gd" id="4_slot"]
+[ext_resource type="Script" path="res://scripts/dreams/DreamRell.gd" id="5_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_rell/big_clock_broken.png" id="6_clkb"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_rell/big_clock_fixed.png" id="7_clkf"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_rell/gear_brass.png" id="8_g1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_rell/gear_iron.png" id="9_g2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_rell/gear_gold.png" id="10_g3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_rell/old_letter.png" id="11_letter"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_rell/door_past.png" id="12_dpast"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_rell/door_forward_locked.png" id="13_dfl"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_rell/door_forward_open.png" id="14_dfo"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_rell/oil_lamp_unlit.png" id="15_lu"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_rell/oil_lamp_lit.png" id="16_ll"]
+[ext_resource type="Texture2D" path="res://assets/sprites/items/clock_hand.png" id="17_hand"]
+
+[sub_resource type="RectangleShape2D" id="Shape_obj"]
+size = Vector2(20, 20)
+[sub_resource type="RectangleShape2D" id="Shape_big"]
+size = Vector2(36, 44)
+[sub_resource type="RectangleShape2D" id="Shape_wall"]
+size = Vector2(480, 16)
+[sub_resource type="RectangleShape2D" id="Shape_wallv"]
+size = Vector2(16, 270)
+
+[node name="DreamRell" type="Node2D"]
+script = ExtResource("5_script")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 480.0
+offset_bottom = 270.0
+color = Color(0.14, 0.1, 0.06, 1)
+
+[node name="Walls" type="Node2D" parent="."]
+[node name="WallTop" type="StaticBody2D" parent="Walls"]
+position = Vector2(240, 8)
+[node name="Shape" type="CollisionShape2D" parent="Walls/WallTop"]
+shape = SubResource("Shape_wall")
+[node name="WallBottom" type="StaticBody2D" parent="Walls"]
+position = Vector2(240, 262)
+[node name="Shape" type="CollisionShape2D" parent="Walls/WallBottom"]
+shape = SubResource("Shape_wall")
+[node name="WallLeft" type="StaticBody2D" parent="Walls"]
+position = Vector2(8, 135)
+[node name="Shape" type="CollisionShape2D" parent="Walls/WallLeft"]
+shape = SubResource("Shape_wallv")
+[node name="WallRight" type="StaticBody2D" parent="Walls"]
+position = Vector2(472, 135)
+[node name="Shape" type="CollisionShape2D" parent="Walls/WallRight"]
+shape = SubResource("Shape_wallv")
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+position = Vector2(60, 200)
+[node name="Camera2D" type="Camera2D" parent="Player"]
+limit_left = 0
+limit_top = 0
+limit_right = 480
+limit_bottom = 270
+
+[node name="CenterClock" type="Node2D" parent="."]
+
+[node name="Broken" type="Sprite2D" parent="CenterClock"]
+texture = ExtResource("6_clkb")
+position = Vector2(240, 80)
+scale = Vector2(2, 2)
+
+[node name="Fixed" type="Sprite2D" parent="CenterClock"]
+texture = ExtResource("7_clkf")
+position = Vector2(240, 80)
+scale = Vector2(2, 2)
+visible = false
+
+[node name="Slots" type="Node2D" parent="CenterClock"]
+
+[node name="Slot1" type="Area2D" parent="CenterClock/Slots"]
+position = Vector2(210, 120)
+script = ExtResource("4_slot")
+prompt_text = "E - Đặt bánh răng"
+slot_id = "gear_slot_1"
+accepts_items = ["gear_brass"]
+[node name="Visual" type="ColorRect" parent="CenterClock/Slots/Slot1"]
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+color = Color(0.4, 0.3, 0.2, 0.8)
+[node name="Shape" type="CollisionShape2D" parent="CenterClock/Slots/Slot1"]
+shape = SubResource("Shape_obj")
+
+[node name="Slot2" type="Area2D" parent="CenterClock/Slots"]
+position = Vector2(240, 120)
+script = ExtResource("4_slot")
+prompt_text = "E - Đặt bánh răng"
+slot_id = "gear_slot_2"
+accepts_items = ["gear_iron"]
+[node name="Visual" type="ColorRect" parent="CenterClock/Slots/Slot2"]
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+color = Color(0.4, 0.3, 0.2, 0.8)
+[node name="Shape" type="CollisionShape2D" parent="CenterClock/Slots/Slot2"]
+shape = SubResource("Shape_obj")
+
+[node name="Slot3" type="Area2D" parent="CenterClock/Slots"]
+position = Vector2(270, 120)
+script = ExtResource("4_slot")
+prompt_text = "E - Đặt bánh răng"
+slot_id = "gear_slot_3"
+accepts_items = ["gear_gold"]
+[node name="Visual" type="ColorRect" parent="CenterClock/Slots/Slot3"]
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+color = Color(0.4, 0.3, 0.2, 0.8)
+[node name="Shape" type="CollisionShape2D" parent="CenterClock/Slots/Slot3"]
+shape = SubResource("Shape_obj")
+
+[node name="HandSlot" type="Area2D" parent="CenterClock"]
+position = Vector2(240, 95)
+script = ExtResource("4_slot")
+prompt_text = "E - Lắp kim đồng hồ"
+slot_id = "clock_hand"
+accepts_items = ["clock_hand"]
+[node name="Visual" type="ColorRect" parent="CenterClock/HandSlot"]
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+color = Color(0.5, 0.4, 0.3, 0.6)
+[node name="Shape" type="CollisionShape2D" parent="CenterClock/HandSlot"]
+shape = SubResource("Shape_obj")
+
+[node name="GearsArea" type="Node2D" parent="."]
+[node name="Gears" type="Node2D" parent="GearsArea"]
+
+[node name="Gear1" type="Area2D" parent="GearsArea/Gears"]
+position = Vector2(60, 60)
+script = ExtResource("3_pickup")
+prompt_text = "E - Bánh răng đồng"
+item_id = "gear_brass"
+[node name="Sprite" type="Sprite2D" parent="GearsArea/Gears/Gear1"]
+texture = ExtResource("8_g1")
+scale = Vector2(1.5, 1.5)
+[node name="Shape" type="CollisionShape2D" parent="GearsArea/Gears/Gear1"]
+shape = SubResource("Shape_obj")
+
+[node name="Gear2" type="Area2D" parent="GearsArea/Gears"]
+position = Vector2(110, 60)
+script = ExtResource("3_pickup")
+prompt_text = "E - Bánh răng sắt"
+item_id = "gear_iron"
+[node name="Sprite" type="Sprite2D" parent="GearsArea/Gears/Gear2"]
+texture = ExtResource("9_g2")
+scale = Vector2(1.5, 1.5)
+[node name="Shape" type="CollisionShape2D" parent="GearsArea/Gears/Gear2"]
+shape = SubResource("Shape_obj")
+
+[node name="Gear3" type="Area2D" parent="GearsArea/Gears"]
+position = Vector2(160, 60)
+script = ExtResource("3_pickup")
+prompt_text = "E - Bánh răng vàng"
+item_id = "gear_gold"
+[node name="Sprite" type="Sprite2D" parent="GearsArea/Gears/Gear3"]
+texture = ExtResource("10_g3")
+scale = Vector2(1.5, 1.5)
+[node name="Shape" type="CollisionShape2D" parent="GearsArea/Gears/Gear3"]
+shape = SubResource("Shape_obj")
+
+[node name="LetterArea" type="Node2D" parent="."]
+[node name="Letter" type="Area2D" parent="LetterArea"]
+position = Vector2(120, 200)
+script = ExtResource("3_pickup")
+prompt_text = "E - Lá thư cũ"
+item_id = "old_letter"
+[node name="Sprite" type="Sprite2D" parent="LetterArea/Letter"]
+texture = ExtResource("11_letter")
+scale = Vector2(1.5, 1.5)
+[node name="Shape" type="CollisionShape2D" parent="LetterArea/Letter"]
+shape = SubResource("Shape_obj")
+[node name="Label" type="Label" parent="LetterArea/Letter"]
+offset_left = -40.0
+offset_top = -22.0
+offset_right = 40.0
+offset_bottom = -8.0
+text = "Lá thư cũ"
+horizontal_alignment = 1
+modulate = Color(0.95, 0.85, 0.6, 0.9)
+
+[node name="LampPickup" type="Area2D" parent="."]
+position = Vector2(240, 200)
+script = ExtResource("3_pickup")
+prompt_text = "E - Đèn dầu"
+item_id = "oil_lamp"
+enabled = false
+[node name="Sprite" type="Sprite2D" parent="LampPickup"]
+texture = ExtResource("15_lu")
+[node name="Shape" type="CollisionShape2D" parent="LampPickup"]
+shape = SubResource("Shape_obj")
+[node name="Label" type="Label" parent="LampPickup"]
+offset_left = -32.0
+offset_top = -28.0
+offset_right = 32.0
+offset_bottom = -14.0
+text = "Đèn dầu"
+horizontal_alignment = 1
+modulate = Color(1, 0.95, 0.7, 0.9)
+
+[node name="RitualHandPickup" type="Area2D" parent="."]
+position = Vector2(290, 200)
+script = ExtResource("3_pickup")
+prompt_text = "E - Kim đồng hồ"
+item_id = "clock_hand"
+enabled = false
+[node name="Sprite" type="Sprite2D" parent="RitualHandPickup"]
+texture = ExtResource("17_hand")
+[node name="Shape" type="CollisionShape2D" parent="RitualHandPickup"]
+shape = SubResource("Shape_obj")
+[node name="Label" type="Label" parent="RitualHandPickup"]
+offset_left = -36.0
+offset_top = -22.0
+offset_right = 36.0
+offset_bottom = -8.0
+text = "Kim phút"
+horizontal_alignment = 1
+modulate = Color(1, 0.95, 0.7, 0.9)
+
+[node name="PastDoor" type="Area2D" parent="."]
+position = Vector2(380, 100)
+script = ExtResource("2_interactable")
+prompt_text = "E - Cửa quá khứ"
+[node name="Sprite" type="Sprite2D" parent="PastDoor"]
+texture = ExtResource("12_dpast")
+[node name="Shape" type="CollisionShape2D" parent="PastDoor"]
+shape = SubResource("Shape_big")
+[node name="Label" type="Label" parent="PastDoor"]
+offset_left = -48.0
+offset_top = -36.0
+offset_right = 48.0
+offset_bottom = -22.0
+text = "Cửa quá khứ"
+horizontal_alignment = 1
+modulate = Color(1, 0.85, 0.6, 0.9)
+
+[node name="ForwardDoor" type="Area2D" parent="."]
+position = Vector2(440, 200)
+script = ExtResource("2_interactable")
+prompt_text = "E - Bước qua"
+enabled = false
+[node name="DoorLocked" type="Sprite2D" parent="ForwardDoor"]
+texture = ExtResource("13_dfl")
+[node name="DoorOpen" type="Sprite2D" parent="ForwardDoor"]
+texture = ExtResource("14_dfo")
+visible = false
+[node name="LampUnlit" type="Sprite2D" parent="ForwardDoor"]
+texture = ExtResource("15_lu")
+position = Vector2(-12, 0)
+[node name="LampLit" type="Sprite2D" parent="ForwardDoor"]
+texture = ExtResource("16_ll")
+position = Vector2(-12, 0)
+visible = false
+[node name="LampSlot" type="Area2D" parent="ForwardDoor"]
+position = Vector2(-12, 0)
+script = ExtResource("4_slot")
+prompt_text = "E - Đặt đèn"
+slot_id = "lamp_slot"
+accepts_items = ["oil_lamp"]
+[node name="Shape" type="CollisionShape2D" parent="ForwardDoor/LampSlot"]
+shape = SubResource("Shape_obj")
+[node name="Shape" type="CollisionShape2D" parent="ForwardDoor"]
+shape = SubResource("Shape_big")
+[node name="Label" type="Label" parent="ForwardDoor"]
+offset_left = -56.0
+offset_top = -40.0
+offset_right = 56.0
+offset_bottom = -26.0
+text = "Cửa phía trước"
+horizontal_alignment = 1
+modulate = Color(0.95, 0.95, 1, 0.9)
+
+[node name="HintHUD" type="CanvasLayer" parent="."]
+layer = 8
+[node name="StepBox" type="Panel" parent="HintHUD"]
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -240.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = 32.0
+[node name="StepLabel" type="Label" parent="HintHUD/StepBox"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 4.0
+offset_right = -6.0
+offset_bottom = -4.0
+text = "B1: Lấy 3 bánh răng"
+horizontal_alignment = 1
+modulate = Color(1, 0.92, 0.6, 1)

@@ -1,0 +1,640 @@
+[gd_scene load_steps=22 format=3 uid="uid://b0miradream0001"]
+
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="1_player"]
+[ext_resource type="Script" path="res://scripts/interaction/Interactable.gd" id="2_interactable"]
+[ext_resource type="Script" path="res://scripts/interaction/PickupItem.gd" id="3_pickup"]
+[ext_resource type="Script" path="res://scripts/interaction/PlaceSlot.gd" id="4_slot"]
+[ext_resource type="Script" path="res://scripts/dreams/DreamMira.gd" id="5_script"]
+[ext_resource type="Script" path="res://scripts/interaction/NPC.gd" id="6_npc"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_mira/mirror_warped.png" id="7_warped"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_mira/mirror_real.png" id="8_real"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_mira/mirror_shard_1.png" id="9_s1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_mira/mirror_shard_2.png" id="10_s2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_mira/mirror_shard_3.png" id="11_s3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_mira/memory_cat.png" id="12_mc"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_mira/memory_flower.png" id="13_mf"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_mira/memory_child.png" id="14_mch"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_mira/memory_friend.png" id="15_mfr"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_mira/flower_wilted.png" id="16_fw"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_mira/flower_bloomed.png" id="17_fb"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_mira/light_source.png" id="18_lt"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_mira/water_drop.png" id="19_wd"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_mira/memory_glow.png" id="20_glow"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_mira/mask.png" id="21_mask"]
+[ext_resource type="Texture2D" path="res://assets/sprites/items/door_closed.png" id="22_door"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/mira.png" id="23_mira"]
+[ext_resource type="Texture2D" path="res://assets/sprites/tiles/floor_dream.png" id="24_floor"]
+
+[sub_resource type="RectangleShape2D" id="Shape_obj"]
+size = Vector2(20, 20)
+
+[sub_resource type="RectangleShape2D" id="Shape_obj_big"]
+size = Vector2(28, 36)
+
+[sub_resource type="RectangleShape2D" id="Shape_wall"]
+size = Vector2(480, 16)
+
+[sub_resource type="RectangleShape2D" id="Shape_wallv"]
+size = Vector2(16, 270)
+
+[node name="DreamMira" type="Node2D"]
+script = ExtResource("5_script")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 480.0
+offset_bottom = 270.0
+color = Color(0.13, 0.1, 0.2, 1)
+
+[node name="Floor" type="Sprite2D" parent="."]
+texture = ExtResource("24_floor")
+position = Vector2(240, 135)
+scale = Vector2(30, 17)
+modulate = Color(0.7, 0.7, 0.85, 1)
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="WallTop" type="StaticBody2D" parent="Walls"]
+position = Vector2(240, 8)
+[node name="Shape" type="CollisionShape2D" parent="Walls/WallTop"]
+shape = SubResource("Shape_wall")
+
+[node name="WallBottom" type="StaticBody2D" parent="Walls"]
+position = Vector2(240, 262)
+[node name="Shape" type="CollisionShape2D" parent="Walls/WallBottom"]
+shape = SubResource("Shape_wall")
+
+[node name="WallLeft" type="StaticBody2D" parent="Walls"]
+position = Vector2(8, 135)
+[node name="Shape" type="CollisionShape2D" parent="Walls/WallLeft"]
+shape = SubResource("Shape_wallv")
+
+[node name="WallRight" type="StaticBody2D" parent="Walls"]
+position = Vector2(472, 135)
+[node name="Shape" type="CollisionShape2D" parent="Walls/WallRight"]
+shape = SubResource("Shape_wallv")
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+position = Vector2(60, 130)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+limit_left = 0
+limit_top = 0
+limit_right = 480
+limit_bottom = 270
+
+[node name="ZoneLabels" type="Node2D" parent="."]
+
+[node name="LabelMirrorArea" type="Label" parent="ZoneLabels"]
+offset_left = 32.0
+offset_top = 18.0
+offset_right = 200.0
+offset_bottom = 36.0
+text = "❖ Khu gương vỡ"
+modulate = Color(0.85, 0.95, 1, 0.8)
+
+[node name="LabelMemoryArea" type="Label" parent="ZoneLabels"]
+offset_left = 280.0
+offset_top = 18.0
+offset_right = 470.0
+offset_bottom = 36.0
+text = "❖ Khu tranh ký ức"
+modulate = Color(0.95, 0.85, 0.95, 0.8)
+
+[node name="LabelCenter" type="Label" parent="ZoneLabels"]
+offset_left = 180.0
+offset_top = 80.0
+offset_right = 320.0
+offset_bottom = 96.0
+text = "Phòng trung tâm"
+horizontal_alignment = 1
+modulate = Color(0.95, 0.9, 0.85, 0.7)
+
+[node name="LabelFlower" type="Label" parent="ZoneLabels"]
+offset_left = 32.0
+offset_top = 200.0
+offset_right = 220.0
+offset_bottom = 218.0
+text = "❖ Vườn hoa héo"
+modulate = Color(0.85, 0.95, 0.85, 0.8)
+
+[node name="LabelDoor" type="Label" parent="ZoneLabels"]
+offset_left = 360.0
+offset_top = 200.0
+offset_right = 470.0
+offset_bottom = 218.0
+text = "❖ Cửa tỉnh mộng"
+modulate = Color(1, 0.92, 0.6, 0.8)
+
+[node name="MirrorArea" type="Node2D" parent="."]
+
+[node name="Shards" type="Node2D" parent="MirrorArea"]
+
+[node name="Shard1" type="Area2D" parent="MirrorArea/Shards"]
+position = Vector2(50, 60)
+script = ExtResource("3_pickup")
+prompt_text = "E - Nhặt mảnh gương"
+item_id = "mirror_shard_1"
+
+[node name="Sprite" type="Sprite2D" parent="MirrorArea/Shards/Shard1"]
+texture = ExtResource("9_s1")
+scale = Vector2(1.5, 1.5)
+
+[node name="Shape" type="CollisionShape2D" parent="MirrorArea/Shards/Shard1"]
+shape = SubResource("Shape_obj")
+
+[node name="Prompt" type="Label" parent="MirrorArea/Shards/Shard1"]
+offset_left = -36.0
+offset_top = 18.0
+offset_right = 36.0
+offset_bottom = 32.0
+text = "E - Mảnh 1"
+horizontal_alignment = 1
+modulate = Color(1, 0.95, 0.6, 1)
+visible = false
+
+[node name="Shard2" type="Area2D" parent="MirrorArea/Shards"]
+position = Vector2(120, 50)
+script = ExtResource("3_pickup")
+prompt_text = "E - Nhặt mảnh gương"
+item_id = "mirror_shard_2"
+
+[node name="Sprite" type="Sprite2D" parent="MirrorArea/Shards/Shard2"]
+texture = ExtResource("10_s2")
+scale = Vector2(1.5, 1.5)
+
+[node name="Shape" type="CollisionShape2D" parent="MirrorArea/Shards/Shard2"]
+shape = SubResource("Shape_obj")
+
+[node name="Prompt" type="Label" parent="MirrorArea/Shards/Shard2"]
+offset_left = -36.0
+offset_top = 18.0
+offset_right = 36.0
+offset_bottom = 32.0
+text = "E - Mảnh 2"
+horizontal_alignment = 1
+modulate = Color(1, 0.95, 0.6, 1)
+visible = false
+
+[node name="Shard3" type="Area2D" parent="MirrorArea/Shards"]
+position = Vector2(180, 60)
+script = ExtResource("3_pickup")
+prompt_text = "E - Nhặt mảnh gương"
+item_id = "mirror_shard_3"
+
+[node name="Sprite" type="Sprite2D" parent="MirrorArea/Shards/Shard3"]
+texture = ExtResource("11_s3")
+scale = Vector2(1.5, 1.5)
+
+[node name="Shape" type="CollisionShape2D" parent="MirrorArea/Shards/Shard3"]
+shape = SubResource("Shape_obj")
+
+[node name="Prompt" type="Label" parent="MirrorArea/Shards/Shard3"]
+offset_left = -36.0
+offset_top = 18.0
+offset_right = 36.0
+offset_bottom = 32.0
+text = "E - Mảnh 3"
+horizontal_alignment = 1
+modulate = Color(1, 0.95, 0.6, 1)
+visible = false
+
+[node name="CenterRoom" type="Node2D" parent="."]
+
+[node name="MirrorWarped" type="Sprite2D" parent="CenterRoom"]
+texture = ExtResource("7_warped")
+position = Vector2(240, 130)
+scale = Vector2(2, 2)
+
+[node name="MirrorReal" type="Sprite2D" parent="CenterRoom"]
+texture = ExtResource("8_real")
+position = Vector2(240, 130)
+scale = Vector2(2, 2)
+visible = false
+
+[node name="MirrorWarpedSlot" type="Area2D" parent="CenterRoom"]
+position = Vector2(240, 130)
+script = ExtResource("4_slot")
+prompt_text = "E - Đặt mảnh gương"
+slot_id = "mirror_frame"
+
+[node name="Shape" type="CollisionShape2D" parent="CenterRoom/MirrorWarpedSlot"]
+shape = SubResource("Shape_obj_big")
+
+[node name="Prompt" type="Label" parent="CenterRoom/MirrorWarpedSlot"]
+offset_left = -56.0
+offset_top = 36.0
+offset_right = 56.0
+offset_bottom = 50.0
+text = "E - Lắp mảnh gương"
+horizontal_alignment = 1
+modulate = Color(1, 0.9, 0.4, 1)
+visible = false
+
+[node name="MemoryArea" type="Node2D" parent="."]
+
+[node name="Memories" type="Node2D" parent="MemoryArea"]
+
+[node name="MemCat" type="Area2D" parent="MemoryArea/Memories"]
+position = Vector2(330, 60)
+script = ExtResource("3_pickup")
+prompt_text = "E - Ký ức về con mèo"
+item_id = "mira_cat"
+
+[node name="Sprite" type="Sprite2D" parent="MemoryArea/Memories/MemCat"]
+texture = ExtResource("12_mc")
+scale = Vector2(1.5, 1.5)
+
+[node name="Glow" type="Sprite2D" parent="MemoryArea/Memories/MemCat"]
+texture = ExtResource("20_glow")
+modulate = Color(1, 0.9, 0.6, 0.7)
+scale = Vector2(2, 2)
+
+[node name="Shape" type="CollisionShape2D" parent="MemoryArea/Memories/MemCat"]
+shape = SubResource("Shape_obj")
+
+[node name="Prompt" type="Label" parent="MemoryArea/Memories/MemCat"]
+offset_left = -48.0
+offset_top = 18.0
+offset_right = 48.0
+offset_bottom = 32.0
+text = "E - Ký ức mèo"
+horizontal_alignment = 1
+modulate = Color(1, 0.95, 0.6, 1)
+visible = false
+
+[node name="MemFlower" type="Area2D" parent="MemoryArea/Memories"]
+position = Vector2(390, 50)
+script = ExtResource("3_pickup")
+prompt_text = "E - Ký ức tặng hoa"
+item_id = "mira_flower"
+
+[node name="Sprite" type="Sprite2D" parent="MemoryArea/Memories/MemFlower"]
+texture = ExtResource("13_mf")
+scale = Vector2(1.5, 1.5)
+
+[node name="Glow" type="Sprite2D" parent="MemoryArea/Memories/MemFlower"]
+texture = ExtResource("20_glow")
+modulate = Color(1, 0.7, 0.9, 0.7)
+scale = Vector2(2, 2)
+
+[node name="Shape" type="CollisionShape2D" parent="MemoryArea/Memories/MemFlower"]
+shape = SubResource("Shape_obj")
+
+[node name="Prompt" type="Label" parent="MemoryArea/Memories/MemFlower"]
+offset_left = -48.0
+offset_top = 18.0
+offset_right = 48.0
+offset_bottom = 32.0
+text = "E - Ký ức hoa"
+horizontal_alignment = 1
+modulate = Color(1, 0.95, 0.6, 1)
+visible = false
+
+[node name="MemChild" type="Area2D" parent="MemoryArea/Memories"]
+position = Vector2(440, 60)
+script = ExtResource("3_pickup")
+prompt_text = "E - Ký ức em bé"
+item_id = "mira_child"
+
+[node name="Sprite" type="Sprite2D" parent="MemoryArea/Memories/MemChild"]
+texture = ExtResource("14_mch")
+scale = Vector2(1.5, 1.5)
+
+[node name="Glow" type="Sprite2D" parent="MemoryArea/Memories/MemChild"]
+texture = ExtResource("20_glow")
+modulate = Color(0.9, 0.7, 0.7, 0.7)
+scale = Vector2(2, 2)
+
+[node name="Shape" type="CollisionShape2D" parent="MemoryArea/Memories/MemChild"]
+shape = SubResource("Shape_obj")
+
+[node name="Prompt" type="Label" parent="MemoryArea/Memories/MemChild"]
+offset_left = -48.0
+offset_top = 18.0
+offset_right = 48.0
+offset_bottom = 32.0
+text = "E - Ký ức em bé"
+horizontal_alignment = 1
+modulate = Color(1, 0.95, 0.6, 1)
+visible = false
+
+[node name="MemFriend" type="Area2D" parent="MemoryArea/Memories"]
+position = Vector2(420, 130)
+script = ExtResource("3_pickup")
+prompt_text = "E - Ký ức bạn"
+item_id = "mira_friend"
+
+[node name="Sprite" type="Sprite2D" parent="MemoryArea/Memories/MemFriend"]
+texture = ExtResource("15_mfr")
+scale = Vector2(1.5, 1.5)
+
+[node name="Glow" type="Sprite2D" parent="MemoryArea/Memories/MemFriend"]
+texture = ExtResource("20_glow")
+modulate = Color(0.7, 0.85, 0.95, 0.7)
+scale = Vector2(2, 2)
+
+[node name="Shape" type="CollisionShape2D" parent="MemoryArea/Memories/MemFriend"]
+shape = SubResource("Shape_obj")
+
+[node name="Prompt" type="Label" parent="MemoryArea/Memories/MemFriend"]
+offset_left = -48.0
+offset_top = 18.0
+offset_right = 48.0
+offset_bottom = 32.0
+text = "E - Ký ức nghe bạn"
+horizontal_alignment = 1
+modulate = Color(1, 0.95, 0.6, 1)
+visible = false
+
+[node name="FlowerArea" type="Node2D" parent="."]
+
+[node name="FlowerWilted" type="Sprite2D" parent="FlowerArea"]
+texture = ExtResource("16_fw")
+position = Vector2(120, 230)
+scale = Vector2(2, 2)
+
+[node name="FlowerBloomed" type="Sprite2D" parent="FlowerArea"]
+texture = ExtResource("17_fb")
+position = Vector2(120, 230)
+scale = Vector2(2, 2)
+visible = false
+
+[node name="LightPickup" type="Area2D" parent="FlowerArea"]
+position = Vector2(40, 230)
+script = ExtResource("3_pickup")
+prompt_text = "E - Lấy ánh sáng"
+item_id = "light"
+enabled = false
+
+[node name="Sprite" type="Sprite2D" parent="FlowerArea/LightPickup"]
+texture = ExtResource("18_lt")
+
+[node name="Shape" type="CollisionShape2D" parent="FlowerArea/LightPickup"]
+shape = SubResource("Shape_obj")
+
+[node name="Prompt" type="Label" parent="FlowerArea/LightPickup"]
+offset_left = -36.0
+offset_top = 14.0
+offset_right = 36.0
+offset_bottom = 28.0
+text = "E - Ánh sáng"
+horizontal_alignment = 1
+modulate = Color(1, 0.95, 0.6, 1)
+visible = false
+
+[node name="MemoryEssencePickup" type="Area2D" parent="FlowerArea"]
+position = Vector2(180, 230)
+script = ExtResource("3_pickup")
+prompt_text = "E - Lấy tinh hoa ký ức"
+item_id = "memory_essence"
+enabled = false
+
+[node name="Sprite" type="Sprite2D" parent="FlowerArea/MemoryEssencePickup"]
+texture = ExtResource("20_glow")
+scale = Vector2(2, 2)
+modulate = Color(1, 0.85, 0.95, 1)
+
+[node name="Shape" type="CollisionShape2D" parent="FlowerArea/MemoryEssencePickup"]
+shape = SubResource("Shape_obj")
+
+[node name="Prompt" type="Label" parent="FlowerArea/MemoryEssencePickup"]
+offset_left = -36.0
+offset_top = 14.0
+offset_right = 36.0
+offset_bottom = 28.0
+text = "E - Ký ức"
+horizontal_alignment = 1
+modulate = Color(1, 0.95, 0.6, 1)
+visible = false
+
+[node name="WaterPickup" type="Area2D" parent="FlowerArea"]
+position = Vector2(220, 230)
+script = ExtResource("3_pickup")
+prompt_text = "E - Giọt nước"
+item_id = "water"
+enabled = false
+
+[node name="Sprite" type="Sprite2D" parent="FlowerArea/WaterPickup"]
+texture = ExtResource("19_wd")
+
+[node name="Shape" type="CollisionShape2D" parent="FlowerArea/WaterPickup"]
+shape = SubResource("Shape_obj")
+
+[node name="Prompt" type="Label" parent="FlowerArea/WaterPickup"]
+offset_left = -36.0
+offset_top = 14.0
+offset_right = 36.0
+offset_bottom = 28.0
+text = "E - Nước"
+horizontal_alignment = 1
+modulate = Color(1, 0.95, 0.6, 1)
+visible = false
+
+[node name="LightSlot" type="Area2D" parent="FlowerArea"]
+position = Vector2(80, 240)
+script = ExtResource("4_slot")
+prompt_text = "E - Đặt ánh sáng"
+slot_id = "flower_light"
+accepts_items = ["light"]
+
+[node name="Visual" type="ColorRect" parent="FlowerArea/LightSlot"]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+color = Color(0.6, 0.55, 0.4, 1)
+
+[node name="Shape" type="CollisionShape2D" parent="FlowerArea/LightSlot"]
+shape = SubResource("Shape_obj")
+
+[node name="Prompt" type="Label" parent="FlowerArea/LightSlot"]
+offset_left = -36.0
+offset_top = -28.0
+offset_right = 36.0
+offset_bottom = -14.0
+text = "Ánh sáng"
+horizontal_alignment = 1
+modulate = Color(1, 0.95, 0.7, 0.7)
+
+[node name="MemorySlot" type="Area2D" parent="FlowerArea"]
+position = Vector2(140, 240)
+script = ExtResource("4_slot")
+prompt_text = "E - Đặt ký ức"
+slot_id = "flower_memory"
+accepts_items = ["memory_essence"]
+
+[node name="Visual" type="ColorRect" parent="FlowerArea/MemorySlot"]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+color = Color(0.6, 0.55, 0.4, 1)
+
+[node name="Shape" type="CollisionShape2D" parent="FlowerArea/MemorySlot"]
+shape = SubResource("Shape_obj")
+
+[node name="Prompt" type="Label" parent="FlowerArea/MemorySlot"]
+offset_left = -36.0
+offset_top = -28.0
+offset_right = 36.0
+offset_bottom = -14.0
+text = "Ký ức"
+horizontal_alignment = 1
+modulate = Color(1, 0.85, 0.95, 0.7)
+
+[node name="WaterSlot" type="Area2D" parent="FlowerArea"]
+position = Vector2(200, 240)
+script = ExtResource("4_slot")
+prompt_text = "E - Đặt nước"
+slot_id = "flower_water"
+accepts_items = ["water"]
+
+[node name="Visual" type="ColorRect" parent="FlowerArea/WaterSlot"]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+color = Color(0.6, 0.55, 0.4, 1)
+
+[node name="Shape" type="CollisionShape2D" parent="FlowerArea/WaterSlot"]
+shape = SubResource("Shape_obj")
+
+[node name="Prompt" type="Label" parent="FlowerArea/WaterSlot"]
+offset_left = -36.0
+offset_top = -28.0
+offset_right = 36.0
+offset_bottom = -14.0
+text = "Nước"
+horizontal_alignment = 1
+modulate = Color(0.7, 0.85, 0.95, 0.7)
+
+[node name="MiraInDream" type="Area2D" parent="."]
+position = Vector2(280, 160)
+script = ExtResource("6_npc")
+prompt_text = "E - Mira"
+npc_id = "mira_in_dream"
+intro_dialogue_id = "mira_dream_react_mirror"
+enabled = true
+
+[node name="Sprite" type="Sprite2D" parent="MiraInDream"]
+texture = ExtResource("23_mira")
+offset = Vector2(0, -8)
+modulate = Color(0.7, 0.6, 0.8, 0.85)
+
+[node name="Shape" type="CollisionShape2D" parent="MiraInDream"]
+shape = SubResource("Shape_obj")
+
+[node name="Label" type="Label" parent="MiraInDream"]
+offset_left = -24.0
+offset_top = -36.0
+offset_right = 24.0
+offset_bottom = -20.0
+text = "Mira (mơ)"
+horizontal_alignment = 1
+modulate = Color(0.85, 0.7, 0.9, 0.9)
+
+[node name="RitualMask" type="Area2D" parent="."]
+position = Vector2(220, 200)
+script = ExtResource("2_interactable")
+prompt_text = "E - Đặt mặt nạ xuống"
+
+[node name="Sprite" type="Sprite2D" parent="RitualMask"]
+texture = ExtResource("21_mask")
+
+[node name="Shape" type="CollisionShape2D" parent="RitualMask"]
+shape = SubResource("Shape_obj")
+
+[node name="Label" type="Label" parent="RitualMask"]
+offset_left = -32.0
+offset_top = -28.0
+offset_right = 32.0
+offset_bottom = -14.0
+text = "Mặt nạ"
+horizontal_alignment = 1
+modulate = Color(0.95, 0.95, 1, 0.9)
+
+[node name="Prompt" type="Label" parent="RitualMask"]
+offset_left = -56.0
+offset_top = 16.0
+offset_right = 56.0
+offset_bottom = 30.0
+text = "E - Đặt mặt nạ"
+horizontal_alignment = 1
+modulate = Color(1, 0.9, 0.4, 1)
+visible = false
+
+[node name="RitualDoor" type="Area2D" parent="."]
+position = Vector2(440, 240)
+script = ExtResource("2_interactable")
+prompt_text = "E - Bước qua cửa tỉnh mộng"
+enabled = false
+
+[node name="Sprite" type="Sprite2D" parent="RitualDoor"]
+texture = ExtResource("22_door")
+scale = Vector2(1.5, 1.5)
+modulate = Color(1, 0.9, 0.6, 1)
+
+[node name="Shape" type="CollisionShape2D" parent="RitualDoor"]
+shape = SubResource("Shape_obj")
+
+[node name="Label" type="Label" parent="RitualDoor"]
+offset_left = -40.0
+offset_top = -36.0
+offset_right = 40.0
+offset_bottom = -22.0
+text = "Cửa tỉnh mộng"
+horizontal_alignment = 1
+modulate = Color(1, 0.95, 0.6, 1)
+
+[node name="Prompt" type="Label" parent="RitualDoor"]
+offset_left = -64.0
+offset_top = 22.0
+offset_right = 64.0
+offset_bottom = 36.0
+text = "E - Bước qua"
+horizontal_alignment = 1
+modulate = Color(1, 0.9, 0.4, 1)
+visible = false
+
+[node name="HintHUD" type="CanvasLayer" parent="."]
+layer = 8
+
+[node name="StepBox" type="Panel" parent="HintHUD"]
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -240.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = 32.0
+
+[node name="StepLabel" type="Label" parent="HintHUD/StepBox"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 4.0
+offset_right = -6.0
+offset_bottom = -4.0
+text = "Tìm 3 mảnh gương"
+horizontal_alignment = 1
+modulate = Color(1, 0.92, 0.6, 1)
+
+[node name="MemoryBox" type="Panel" parent="HintHUD"]
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -240.0
+offset_top = 36.0
+offset_right = -8.0
+offset_bottom = 60.0
+
+[node name="MemoryLabel" type="Label" parent="HintHUD/MemoryBox"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 4.0
+offset_right = -6.0
+offset_bottom = -4.0
+text = "Ký ức: 0/4   Mảnh gương: 0/3"
+horizontal_alignment = 1
+modulate = Color(0.85, 0.85, 0.95, 1)

@@ -3,18 +3,35 @@
   "lines": [
     {
       "speaker": "Mira",
-      "text": "Đừng nhìn em lâu quá... em không quen."
+      "text": "Đừng đứng gần em quá... em không quen có ai nhìn em."
     },
     {
-      "speaker": "Player",
-      "text": "Dạo này em ngủ không ngon sao?"
+      "speaker": "Bạn",
+      "text": "Em không cần nhìn anh. Anh chỉ muốn nghe em một chút thôi."
     },
     {
       "speaker": "Mira",
-      "text": "Trong mơ có rất nhiều gương. Gương nào cũng nói cùng một điều.",
+      "text": "Trong giấc mơ của em có rất nhiều gương. Gương nào cũng nói cùng một điều."
+    },
+    {
+      "speaker": "Mira",
+      "text": "Em sợ nhìn vào đó. Nhưng em cũng không thể đi đâu khác."
+    },
+    {
+      "speaker": "Bạn",
+      "text": "Anh có thể bước vào giấc mơ cùng em. Nếu em đồng ý."
+    },
+    {
+      "speaker": "Mira",
+      "text": "..."
+    },
+    {
+      "speaker": "Mira",
+      "text": "Vậy... anh đi cùng em nhé.",
       "side_effect": {
         "set_flags": [
-          "mira_intro_done"
+          "mira_intro_done",
+          "mira_dream_offered"
         ]
       }
     }

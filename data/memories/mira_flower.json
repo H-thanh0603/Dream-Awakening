@@ -1,9 +1,7 @@
 {
   "id": "mira_flower",
-  "owner_npc": "mira",
-  "title_vi": "Tặng hoa cho bà cụ",
-  "description_vi": "Mira hay để hoa trước cửa nhà bà cụ sống một mình.",
-  "icon": "",
-  "found_in_dream": "Dream_Mira_MirrorRoom",
-  "is_counter_evidence": true
+  "title_vi": "Mira tặng hoa cho bà cụ",
+  "description_vi": "Bà cụ bán rau khóc khi nhận được bông hoa.",
+  "color_tint": "255,130,170",
+  "found_at": "Khu vườn hoa héo"
 }

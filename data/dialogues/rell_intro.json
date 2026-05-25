@@ -3,10 +3,27 @@
   "lines": [
     {
       "speaker": "Rell",
-      "text": "Đồng hồ nào trong tiệm cũng dừng cùng một giờ. Lạ thật.",
+      "text": "Đồng hồ trong xưởng tôi đứng yên ba tháng rồi. Không phải hỏng. Là tôi không muốn nó chạy."
+    },
+    {
+      "speaker": "Bạn",
+      "text": "Bác có muốn nói tôi nghe không?"
+    },
+    {
+      "speaker": "Rell",
+      "text": "Có một ngày... tôi muốn quay lại. Chỉ một ngày."
+    },
+    {
+      "speaker": "Rell",
+      "text": "Anh vào giấc mơ tôi đi. Để tôi cho anh xem."
+    },
+    {
+      "speaker": "Rell",
+      "text": "...",
       "side_effect": {
         "set_flags": [
-          "rell_intro_done"
+          "rell_intro_done",
+          "rell_dream_offered"
         ]
       }
     }

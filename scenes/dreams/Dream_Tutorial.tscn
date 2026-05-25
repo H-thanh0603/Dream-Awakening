@@ -80,7 +80,7 @@ prompt_text = "E - Bật đèn"
 
 [node name="Sprite" type="Sprite2D" parent="Lamp"]
 texture = ExtResource("7_lamp_off")
-scale = Vector2(1.5, 1.5)
+scale = Vector2(0.75, 0.75)
 
 [node name="NameLabel" type="Label" parent="Lamp"]
 offset_left = -32.0
@@ -113,7 +113,7 @@ enabled = false
 
 [node name="Sprite" type="Sprite2D" parent="PaperClue"]
 texture = ExtResource("9_paper")
-scale = Vector2(1.5, 1.5)
+scale = Vector2(0.8, 0.8)
 
 [node name="NameLabel" type="Label" parent="PaperClue"]
 offset_left = -32.0
@@ -145,7 +145,7 @@ slot_id = "EmptyFrame"
 
 [node name="Sprite" type="Sprite2D" parent="EmptyFrame"]
 texture = ExtResource("10_frame_empty")
-scale = Vector2(1.5, 1.5)
+scale = Vector2(0.8, 0.8)
 
 [node name="NameLabel" type="Label" parent="EmptyFrame"]
 offset_left = -36.0
@@ -177,7 +177,7 @@ enabled = false
 
 [node name="Sprite" type="Sprite2D" parent="Door"]
 texture = ExtResource("12_door_closed")
-scale = Vector2(1.2, 1.2)
+scale = Vector2(0.9, 0.9)
 
 [node name="NameLabel" type="Label" parent="Door"]
 offset_left = -32.0

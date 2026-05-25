@@ -26,6 +26,7 @@ var _full_text: String = ""
 var _typing_complete: bool = false
 var _is_typing: bool = false
 var _skip_typing: bool = false
+var _blink_t: float = 0.0
 
 func _ready() -> void:
 	visible = false
@@ -33,6 +34,15 @@ func _ready() -> void:
 	DialogueManager.dialogue_started.connect(_on_dialogue_started)
 	DialogueManager.dialogue_line_shown.connect(_on_line_shown)
 	DialogueManager.dialogue_ended.connect(_on_dialogue_ended)
+
+func _process(delta: float) -> void:
+	if not visible:
+		return
+	# Blink the hint so player notices
+	_blink_t += delta
+	var pulse: float = 0.6 + 0.4 * abs(sin(_blink_t * 3.0))
+	if next_hint:
+		next_hint.modulate = Color(1.0, 0.95, 0.5, pulse)
 
 func _on_dialogue_started(_id: String) -> void:
 	visible = true
@@ -50,7 +60,9 @@ func _on_line_shown(speaker: String, text: String) -> void:
 	dialogue_text.text = ""
 	_typing_complete = false
 	_skip_typing = false
-	next_hint.visible = false
+	# Hint always visible during dialogue
+	next_hint.visible = true
+	next_hint.text = "[E] / [Space] bỏ qua ▶"
 	_is_typing = true
 
 	var i := 0
@@ -63,7 +75,7 @@ func _on_line_shown(speaker: String, text: String) -> void:
 	dialogue_text.text = _full_text
 	_typing_complete = true
 	_is_typing = false
-	next_hint.visible = true
+	next_hint.text = "[E] / [Space] tiếp ▶"
 
 func _on_dialogue_ended(_id: String) -> void:
 	visible = false

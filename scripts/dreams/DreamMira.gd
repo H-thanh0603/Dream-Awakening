@@ -81,6 +81,8 @@ func _on_shard_placed(item_id: String) -> void:
 		GameState.set_flag("mira_mirror_repaired", true)
 		mirror_warped.visible = false
 		mirror_real.visible = true
+		$CenterRoom/MirrorWarpedSlot.enabled = false
+		$CenterRoom/MirrorWarpedSlot._hide_prompt()
 		NotebookManager.set_objective("Tìm 4 mảnh tranh ký ức về Mira.")
 		NotebookManager.add_entry("SYMBOL", "mirror_real", {
 			"title_vi": "Gương thật",

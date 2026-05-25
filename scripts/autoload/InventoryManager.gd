@@ -52,3 +52,10 @@ func set_active_item(item_id: String) -> void:
 
 func get_active_item() -> String:
 	return _active
+
+func cycle_active() -> void:
+	if _items.is_empty():
+		return
+	var idx: int = _items.find(_active)
+	var next_idx: int = (idx + 1) % _items.size()
+	set_active_item(_items[next_idx])

@@ -218,6 +218,8 @@ position = Vector2(240, 130)
 script = ExtResource("4_slot")
 prompt_text = "E - Đặt mảnh gương"
 slot_id = "mirror_frame"
+multi_use = true
+accepts_items = ["mirror_shard_1", "mirror_shard_2", "mirror_shard_3"]
 
 [node name="Shape" type="CollisionShape2D" parent="CenterRoom/MirrorWarpedSlot"]
 shape = SubResource("Shape_obj_big")
@@ -241,6 +243,7 @@ position = Vector2(330, 60)
 script = ExtResource("3_pickup")
 prompt_text = "E - Ký ức về con mèo"
 item_id = "mira_cat"
+add_to_inventory = false
 
 [node name="Sprite" type="Sprite2D" parent="MemoryArea/Memories/MemCat"]
 texture = ExtResource("12_mc")
@@ -269,6 +272,7 @@ position = Vector2(390, 50)
 script = ExtResource("3_pickup")
 prompt_text = "E - Ký ức tặng hoa"
 item_id = "mira_flower"
+add_to_inventory = false
 
 [node name="Sprite" type="Sprite2D" parent="MemoryArea/Memories/MemFlower"]
 texture = ExtResource("13_mf")
@@ -297,6 +301,7 @@ position = Vector2(440, 60)
 script = ExtResource("3_pickup")
 prompt_text = "E - Ký ức em bé"
 item_id = "mira_child"
+add_to_inventory = false
 
 [node name="Sprite" type="Sprite2D" parent="MemoryArea/Memories/MemChild"]
 texture = ExtResource("14_mch")
@@ -325,6 +330,7 @@ position = Vector2(420, 130)
 script = ExtResource("3_pickup")
 prompt_text = "E - Ký ức bạn"
 item_id = "mira_friend"
+add_to_inventory = false
 
 [node name="Sprite" type="Sprite2D" parent="MemoryArea/Memories/MemFriend"]
 texture = ExtResource("15_mfr")
@@ -511,7 +517,7 @@ horizontal_alignment = 1
 modulate = Color(0.7, 0.85, 0.95, 0.7)
 
 [node name="MiraInDream" type="Area2D" parent="."]
-position = Vector2(280, 160)
+position = Vector2(240, 178)
 script = ExtResource("6_npc")
 prompt_text = "E - Mira"
 npc_id = "mira_in_dream"

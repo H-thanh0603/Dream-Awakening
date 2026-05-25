@@ -37,6 +37,13 @@
 [ext_resource type="Texture2D" path="res://assets/sprites/items/mirror_frame_empty.png" id="34_mirror_frame"]
 [ext_resource type="Texture2D" path="res://assets/sprites/items/mirror_filled.png" id="35_mirror_full"]
 [ext_resource type="Texture2D" path="res://assets/sprites/dream_mira/whisper_shadow.png" id="36_shadow"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_mira/floor_central.png" id="Tx_floor_central"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_mira/floor_mirror.png" id="Tx_floor_mirror"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_mira/floor_hall.png" id="Tx_floor_hall"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_mira/floor_ritual.png" id="Tx_floor_ritual"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_mira/floor_library.png" id="Tx_floor_library"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_mira/floor_garden.png" id="Tx_floor_garden"]
+[ext_resource type="Texture2D" path="res://assets/sprites/dream_mira/floor_studio.png" id="Tx_floor_studio"]
 
 [sub_resource type="RectangleShape2D" id="Sh_obj"]
 size = Vector2(20, 20)
@@ -102,6 +109,56 @@ offset_top = 270.0
 offset_right = 960.0
 offset_bottom = 540.0
 color = Color(0.16, 0.08, 0.10, 1)
+
+[node name="FloorCentral" type="Sprite2D" parent="Background"]
+texture = ExtResource("Tx_floor_central")
+position = Vector2(240, 135)
+region_enabled = true
+region_rect = Rect2(0, 0, 480, 270)
+modulate = Color(1, 1, 1, 0.85)
+
+[node name="FloorMirror" type="Sprite2D" parent="Background"]
+texture = ExtResource("Tx_floor_mirror")
+position = Vector2(720, 135)
+region_enabled = true
+region_rect = Rect2(0, 0, 480, 270)
+modulate = Color(1, 1, 1, 0.85)
+
+[node name="FloorLibrary" type="Sprite2D" parent="Background"]
+texture = ExtResource("Tx_floor_library")
+position = Vector2(1200, 135)
+region_enabled = true
+region_rect = Rect2(0, 0, 480, 270)
+modulate = Color(1, 1, 1, 0.85)
+
+[node name="FloorHall" type="Sprite2D" parent="Background"]
+texture = ExtResource("Tx_floor_hall")
+position = Vector2(240, 405)
+region_enabled = true
+region_rect = Rect2(0, 0, 480, 270)
+modulate = Color(1, 1, 1, 0.85)
+
+[node name="FloorRitual" type="Sprite2D" parent="Background"]
+texture = ExtResource("Tx_floor_ritual")
+position = Vector2(720, 405)
+region_enabled = true
+region_rect = Rect2(0, 0, 480, 270)
+modulate = Color(1, 1, 1, 0.85)
+
+[node name="FloorGarden" type="Sprite2D" parent="Background"]
+texture = ExtResource("Tx_floor_garden")
+position = Vector2(240, 675)
+region_enabled = true
+region_rect = Rect2(0, 0, 480, 270)
+modulate = Color(1, 1, 1, 0.85)
+
+[node name="FloorStudio" type="Sprite2D" parent="Background"]
+texture = ExtResource("Tx_floor_studio")
+position = Vector2(720, 675)
+region_enabled = true
+region_rect = Rect2(0, 0, 480, 270)
+modulate = Color(1, 1, 1, 0.85)
+
 
 [node name="ZoneLabels" type="Node2D" parent="."]
 

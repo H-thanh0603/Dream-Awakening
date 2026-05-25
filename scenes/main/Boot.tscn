@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0otscene00001"]
+
+[sub_resource type="GDScript" id="GDScript_boot"]
+script/source = "extends Node2D
+
+func _ready() -> void:
+	print(\"[Boot] starting...\")
+	await get_tree().process_frame
+	SceneLoader.fade_to(\"res://scenes/main/MainMenu.tscn\")
+"
+
+[node name="Boot" type="Node2D"]
+script = SubResource("GDScript_boot")

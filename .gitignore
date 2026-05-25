@@ -1,0 +1,29 @@
+# Godot 4+ specific ignores
+.godot/
+.import/
+
+# Imported translations
+*.translation
+
+# Mono-specific
+.mono/
+data_*/
+
+# System / IDE
+.vscode/
+.idea/
+*.tmp
+*.swp
+*.bak
+.DS_Store
+Thumbs.db
+
+# Builds
+builds/
+*.exe
+*.pck
+*.zip
+
+# User save data (test only — không đẩy lên repo)
+user-data/
+*.save
